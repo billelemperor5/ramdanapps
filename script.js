@@ -291,9 +291,6 @@ function resolveDom() {
     mainApp: document.getElementById('mainApp'),
     wilayaList: document.getElementById('wilayaList'),
     wilayaSearch: document.getElementById('wilayaSearch'),
-    langToggle: document.getElementById('langToggle'),
-    changeWilayaBtn: document.getElementById('changeWilayaBtn'),
-    currentWilayaName: document.getElementById('currentWilayaName'),
     gregorianDate: document.getElementById('gregorianDate'),
     hijriDate: document.getElementById('hijriDate'),
     imsakTime: document.getElementById('imsakTime'),
@@ -325,6 +322,8 @@ function resolveDom() {
     hubPrayerBtn: document.getElementById('hubPrayerBtn'),
     hubQuizBtn: document.getElementById('hubQuizBtn'),
     hubGameBtn: document.getElementById('hubGameBtn'),
+    hubWilayaBtn: document.getElementById('hubWilayaBtn'),
+    hubWilayaName: document.getElementById('hubWilayaName'),
   };
 }
 
@@ -400,11 +399,9 @@ function selectWilaya(wilaya) {
   showHub();
 }
 
-/** Update the wilaya badge text. */
+/** Update the wilaya badge text (now in hub only). */
 function updateWilayaBadge() {
-  if (!selectedWilaya) return;
-  const name = currentLang === 'ar' ? selectedWilaya.ar : selectedWilaya.fr;
-  dom.currentWilayaName.textContent = name;
+  /* No-op: wilaya is shown in the hub settings bar */
 }
 
 /** Load saved wilaya from localStorage. */
@@ -788,6 +785,11 @@ function showHub() {
   dom.mainApp.style.display = 'none';
   dom.quizScreen.style.display = 'none';
   dom.hubScreen.style.display = '';
+  /* Update wilaya name in hub */
+  if (selectedWilaya && dom.hubWilayaName) {
+    const name = currentLang === 'ar' ? selectedWilaya.ar : selectedWilaya.fr;
+    dom.hubWilayaName.textContent = name;
+  }
 }
 
 function openPrayerFromHub() {
@@ -831,8 +833,6 @@ function init() {
   }, 2500);
 
   /* Event Listeners */
-  dom.langToggle.addEventListener('click', toggleLanguage);
-  dom.changeWilayaBtn.addEventListener('click', showWilayaScreen);
   dom.wilayaSearch.addEventListener('input', () => {
     renderWilayaList(dom.wilayaSearch.value);
   });
@@ -840,10 +840,17 @@ function init() {
   /* Hub event listeners */
   dom.hubLangToggle.addEventListener('click', () => {
     toggleLanguage();
+    /* Also update wilaya name in hub after language change */
+    if (selectedWilaya && dom.hubWilayaName) {
+      dom.hubWilayaName.textContent = currentLang === 'ar' ? selectedWilaya.ar : selectedWilaya.fr;
+    }
   });
   dom.hubPrayerBtn.addEventListener('click', openPrayerFromHub);
   dom.hubQuizBtn.addEventListener('click', () => { openQuizScreen(); });
   dom.hubGameBtn.addEventListener('click', () => { openGameFromHub(); });
+
+  /* Hub wilaya button */
+  dom.hubWilayaBtn.addEventListener('click', showWilayaScreen);
 
   /* Back to hub from prayer screen */
   document.getElementById('backToHubBtn').addEventListener('click', () => {

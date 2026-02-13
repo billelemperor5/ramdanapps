@@ -126,18 +126,6 @@
   ═══════════════════════════════════════════════ -->
     <div id="mainApp" class="app" style="display:none;">
 
-        <!-- Top Bar: Language + Wilaya -->
-        <div class="top-bar">
-            <button id="changeWilayaBtn" class="wilaya-badge" aria-label="تغيير الولاية">
-                <span class="wilaya-badge__icon">📍</span>
-                <span class="wilaya-badge__name" id="currentWilayaName">—</span>
-            </button>
-            <button id="langToggle" class="lang-toggle" aria-label="تبديل اللغة">
-                <span class="lang-toggle__icon">🌐</span>
-                <span class="lang-toggle__label" data-i18n="langSwitch">Français</span>
-            </button>
-        </div>
-
         <!-- Header -->
         <header class="header fade-in">
             <button id="backToHubBtn" class="back-to-hub-btn" aria-label="رجوع">←</button>
@@ -220,31 +208,55 @@
   ═══════════════════════════════════════════════ -->
     <div id="hubScreen" class="hub-screen" style="display:none;">
         <div class="hub-screen__content">
-            <div class="hub-header">
-                <h1 class="hub-header__title" data-i18n="appTitle">رمضان مبارك</h1>
-                <button class="hub-header__lang" id="hubLangToggle" data-i18n="langSwitch">Français</button>
+
+            <!-- Settings Bar -->
+            <div class="hub-settings">
+                <button class="hub-settings__wilaya" id="hubWilayaBtn">
+                    <span class="hub-settings__wilaya-icon">📍</span>
+                    <span class="hub-settings__wilaya-name" id="hubWilayaName" data-i18n="selectWilaya">اختر
+                        الولاية</span>
+                    <span class="hub-settings__wilaya-arrow">▾</span>
+                </button>
+                <button class="hub-settings__lang" id="hubLangToggle" data-i18n="langSwitch">Français</button>
             </div>
 
+            <!-- Logo & Title -->
+            <div class="hub-logo">
+                <svg viewBox="0 0 80 80" class="hub-logo__svg">
+                    <circle cx="40" cy="40" r="28" fill="var(--gold)" />
+                    <circle cx="52" cy="34" r="24" fill="var(--bg-primary)" />
+                </svg>
+                <h1 class="hub-logo__title" data-i18n="appTitle">رمضان كريم</h1>
+                <p class="hub-logo__subtitle" data-i18n="appSubtitle">شهر الرحمة والغفران</p>
+            </div>
+
+            <!-- Feature Cards -->
             <div class="hub-cards">
-                <!-- Prayer Times -->
                 <button class="hub-card hub-card--prayer" id="hubPrayerBtn">
                     <span class="hub-card__icon">🕌</span>
-                    <span class="hub-card__title" data-i18n="hubPrayer">إمساك و إفطار</span>
-                    <span class="hub-card__desc" data-i18n="hubPrayerDesc">مواقيت الصلاة والعد التنازلي</span>
+                    <div class="hub-card__text">
+                        <span class="hub-card__title" data-i18n="hubPrayer">إمساك و إفطار</span>
+                        <span class="hub-card__desc" data-i18n="hubPrayerDesc">مواقيت الصلاة والعد التنازلي</span>
+                    </div>
+                    <span class="hub-card__arrow">◀</span>
                 </button>
 
-                <!-- Quiz -->
                 <button class="hub-card hub-card--quiz" id="hubQuizBtn">
                     <span class="hub-card__icon">🧠</span>
-                    <span class="hub-card__title" data-i18n="quizTitle">تحدّي رمضان</span>
-                    <span class="hub-card__desc" data-i18n="quizDesc">سؤال ديني جديد كل يوم</span>
+                    <div class="hub-card__text">
+                        <span class="hub-card__title" data-i18n="quizTitle">تحدّي رمضان</span>
+                        <span class="hub-card__desc" data-i18n="quizDesc">سؤال ديني جديد كل يوم</span>
+                    </div>
+                    <span class="hub-card__arrow">◀</span>
                 </button>
 
-                <!-- Game -->
                 <button class="hub-card hub-card--game" id="hubGameBtn">
                     <span class="hub-card__icon">🌙</span>
-                    <span class="hub-card__title" data-i18n="gameTitle">Ramadan Night Journey</span>
-                    <span class="hub-card__desc" data-i18n="gameDesc">طيّر بالهلال واجمع النجوم</span>
+                    <div class="hub-card__text">
+                        <span class="hub-card__title" data-i18n="gameTitle">Ramadan Night Journey</span>
+                        <span class="hub-card__desc" data-i18n="gameDesc">طيّر بالهلال واجمع النجوم</span>
+                    </div>
+                    <span class="hub-card__arrow">◀</span>
                 </button>
             </div>
 
