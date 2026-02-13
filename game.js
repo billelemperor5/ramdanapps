@@ -456,6 +456,14 @@ const RNJ = (() => {
         flap();
     }
 
+    function onOverlayClick(e) {
+        // Clicking the start overlay begins the game
+        if (e.target.closest('.game-hud__back, .game-restart-btn')) return;
+        if (gameState === 'idle') {
+            flap();
+        }
+    }
+
     /* ═══════════════════════════════════════════════
        PUBLIC API
        ═══════════════════════════════════════════════ */
@@ -496,25 +504,29 @@ const RNJ = (() => {
     }
 
     function start() {
+        const gameScreen = document.getElementById('gameScreen');
         resize();
         resetToIdle();
         running = true;
 
         window.addEventListener('resize', resize);
         window.addEventListener('keydown', onKeyDown);
-        canvas.addEventListener('touchstart', onTouch, { passive: false });
-        canvas.addEventListener('mousedown', onTouch);
+        gameScreen.addEventListener('touchstart', onTouch, { passive: false });
+        gameScreen.addEventListener('mousedown', onTouch);
+        elStartOverlay.addEventListener('click', onOverlayClick);
 
         loop();
     }
 
     function stop() {
+        const gameScreen = document.getElementById('gameScreen');
         running = false;
         if (frameId) { cancelAnimationFrame(frameId); frameId = null; }
         window.removeEventListener('resize', resize);
         window.removeEventListener('keydown', onKeyDown);
-        canvas.removeEventListener('touchstart', onTouch);
-        canvas.removeEventListener('mousedown', onTouch);
+        gameScreen.removeEventListener('touchstart', onTouch);
+        gameScreen.removeEventListener('mousedown', onTouch);
+        elStartOverlay.removeEventListener('click', onOverlayClick);
         gameState = 'idle';
     }
 
