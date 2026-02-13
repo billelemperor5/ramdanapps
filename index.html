@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#0a0e1a" />
+    <meta name="description" content="تطبيق رمضان — أوقات الإمساك والإفطار مع العد التنازلي لجميع ولايات الجزائر" />
+    <title>رمضان كريم</title>
+
+    <!-- Google Fonts: Tajawal (Arabic) + Inter (French) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ══════════════════════════════════════════════
+       SPLASH SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="splashScreen" class="splash">
+        <div class="splash__bg-stars" aria-hidden="true">
+            <span class="splash-star splash-star--1"></span>
+            <span class="splash-star splash-star--2"></span>
+            <span class="splash-star splash-star--3"></span>
+            <span class="splash-star splash-star--4"></span>
+            <span class="splash-star splash-star--5"></span>
+            <span class="splash-star splash-star--6"></span>
+            <span class="splash-star splash-star--7"></span>
+            <span class="splash-star splash-star--8"></span>
+        </div>
+        <div class="splash__content">
+            <svg class="splash__crescent" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="60" r="48" fill="var(--gold)" />
+                <circle cx="78" cy="50" r="42" fill="var(--bg-primary)" />
+            </svg>
+            <h1 class="splash__title">رمضان كريم</h1>
+            <p class="splash__subtitle">Ramadan Karim</p>
+            <div class="splash__loader">
+                <div class="splash__loader-track">
+                    <div class="splash__loader-fill"></div>
+                </div>
+                <span class="splash__loader-text">جاري التحميل...</span>
+            </div>
+        </div>
+        <div class="splash__mosque" aria-hidden="true">
+            <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" class="splash__mosque-svg">
+                <!-- Mosque silhouette -->
+                <rect x="40" y="60" width="320" height="60" fill="var(--gold)" opacity="0.06" />
+                <rect x="70" y="40" width="60" height="80" rx="2" fill="var(--gold)" opacity="0.08" />
+                <rect x="270" y="40" width="60" height="80" rx="2" fill="var(--gold)" opacity="0.08" />
+                <!-- Dome -->
+                <ellipse cx="200" cy="45" rx="60" ry="35" fill="var(--gold)" opacity="0.07" />
+                <!-- Minarets -->
+                <rect x="85" y="10" width="6" height="50" rx="3" fill="var(--gold)" opacity="0.1" />
+                <rect x="309" y="10" width="6" height="50" rx="3" fill="var(--gold)" opacity="0.1" />
+                <circle cx="88" cy="8" r="4" fill="var(--gold)" opacity="0.12" />
+                <circle cx="312" cy="8" r="4" fill="var(--gold)" opacity="0.12" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       WILAYA SELECTION SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="wilayaScreen" class="wilaya-screen" style="display:none;">
+        <div class="wilaya-screen__content">
+            <div class="wilaya-screen__header">
+                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="wilaya-screen__icon">
+                    <circle cx="30" cy="30" r="22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity="0.6" />
+                    <circle cx="30" cy="24" r="4" fill="var(--gold)" opacity="0.8" />
+                    <path d="M30 28 L30 42" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"
+                        opacity="0.8" />
+                    <path d="M24 38 L30 42 L36 38" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"
+                        fill="none" opacity="0.8" />
+                </svg>
+                <h2 class="wilaya-screen__title" data-i18n="selectWilayaTitle">اختر ولايتك</h2>
+                <p class="wilaya-screen__desc" data-i18n="selectWilayaDesc">لعرض مواقيت الإمساك والإفطار الخاصة بمنطقتك
+                </p>
+            </div>
+
+            <!-- Search -->
+            <div class="wilaya-screen__search-wrap">
+                <input type="text" id="wilayaSearch" class="wilaya-screen__search" placeholder="🔍 ابحث عن ولايتك..."
+                    data-i18n-placeholder="searchPlaceholder" autocomplete="off" />
+            </div>
+
+            <!-- List -->
+            <div class="wilaya-screen__list" id="wilayaList">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       Decorative Background — Crescent & Stars
+  ═══════════════════════════════════════════════ -->
+    <div class="bg-decoration" aria-hidden="true">
+        <svg class="bg-crescent" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" fill="var(--gold)" opacity="0.07" />
+            <circle cx="130" cy="85" r="70" fill="var(--bg-primary)" />
+        </svg>
+        <div class="bg-stars">
+            <span class="star star--1"></span>
+            <span class="star star--2"></span>
+            <span class="star star--3"></span>
+            <span class="star star--4"></span>
+            <span class="star star--5"></span>
+            <span class="star star--6"></span>
+            <span class="star star--7"></span>
+            <span class="star star--8"></span>
+            <span class="star star--9"></span>
+            <span class="star star--10"></span>
+            <span class="star star--11"></span>
+            <span class="star star--12"></span>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       App Container (Main Screen)
+  ═══════════════════════════════════════════════ -->
+    <div id="mainApp" class="app" style="display:none;">
+
+        <!-- Top Bar: Language + Wilaya -->
+        <div class="top-bar">
+            <button id="changeWilayaBtn" class="wilaya-badge" aria-label="تغيير الولاية">
+                <span class="wilaya-badge__icon">📍</span>
+                <span class="wilaya-badge__name" id="currentWilayaName">—</span>
+            </button>
+            <button id="langToggle" class="lang-toggle" aria-label="تبديل اللغة">
+                <span class="lang-toggle__icon">🌐</span>
+                <span class="lang-toggle__label" data-i18n="langSwitch">Français</span>
+            </button>
+        </div>
+
+        <!-- Header -->
+        <header class="header fade-in">
+            <div class="header__crescent">
+                <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" class="header__crescent-svg">
+                    <circle cx="40" cy="40" r="30" fill="var(--gold)" />
+                    <circle cx="52" cy="34" r="26" fill="var(--glass-bg)" />
+                </svg>
+            </div>
+            <h1 class="header__title" data-i18n="appTitle">رمضان كريم</h1>
+            <p class="header__subtitle" data-i18n="appSubtitle">شهر الرحمة والغفران</p>
+        </header>
+
+        <!-- Date Card -->
+        <section class="card card--date slide-up" style="--delay: 0.1s">
+            <div class="card__row">
+                <div class="date-block">
+                    <span class="date-block__label" data-i18n="gregorianDate">التاريخ الميلادي</span>
+                    <span class="date-block__value" id="gregorianDate">—</span>
+                </div>
+                <div class="date-block__divider"></div>
+                <div class="date-block">
+                    <span class="date-block__label" data-i18n="hijriDate">التاريخ الهجري</span>
+                    <span class="date-block__value" id="hijriDate">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayer Times Card -->
+        <section class="card card--times slide-up" style="--delay: 0.25s">
+            <div class="times-row">
+                <div class="time-block">
+                    <div class="time-block__icon">🌙</div>
+                    <span class="time-block__label" data-i18n="imsakLabel">الإمساك</span>
+                    <span class="time-block__value" id="imsakTime">—</span>
+                </div>
+                <div class="times-row__divider"></div>
+                <div class="time-block">
+                    <div class="time-block__icon">☀️</div>
+                    <span class="time-block__label" data-i18n="iftarLabel">الإفطار</span>
+                    <span class="time-block__value" id="iftarTime">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Card -->
+        <section class="card card--countdown slide-up" style="--delay: 0.4s">
+            <p class="countdown__label" id="countdownLabel" data-i18n="countdownToIftar">الوقت المتبقي للإفطار</p>
+            <div class="countdown__timer" id="countdownTimer">
+                <div class="countdown__unit">
+                    <span class="countdown__digit" id="cdHours">00</span>
+                    <span class="countdown__unit-label" data-i18n="hours">ساعة</span>
+                </div>
+                <span class="countdown__sep">:</span>
+                <div class="countdown__unit">
+                    <span class="countdown__digit" id="cdMinutes">00</span>
+                    <span class="countdown__unit-label" data-i18n="minutes">دقيقة</span>
+                </div>
+                <span class="countdown__sep">:</span>
+                <div class="countdown__unit">
+                    <span class="countdown__digit" id="cdSeconds">00</span>
+                    <span class="countdown__unit-label" data-i18n="seconds">ثانية</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ramadan Day Info -->
+        <section class="card card--day slide-up" style="--delay: 0.55s">
+            <p class="day-info" id="ramadanDayInfo" data-i18n="ramadanDay">—</p>
+        </section>
+
+        <!-- Quiz Launch Button -->
+        <section class="card card--quiz-launch slide-up" style="--delay: 0.65s">
+            <button id="openQuizBtn" class="quiz-launch-btn">
+                <span class="quiz-launch-btn__icon">🧠</span>
+                <div class="quiz-launch-btn__text">
+                    <span class="quiz-launch-btn__title" data-i18n="quizTitle">تحدّي رمضان</span>
+                    <span class="quiz-launch-btn__desc" data-i18n="quizDesc">سؤال ديني جديد كل يوم</span>
+                </div>
+                <span class="quiz-launch-btn__arrow">◀</span>
+            </button>
+        </section>
+
+        <!-- Game Launch Button -->
+        <section class="card card--quiz-launch slide-up" style="--delay: 0.75s">
+            <button id="openGameBtn" class="quiz-launch-btn">
+                <span class="quiz-launch-btn__icon">🌙</span>
+                <div class="quiz-launch-btn__text">
+                    <span class="quiz-launch-btn__title" data-i18n="gameTitle">Ramadan Night Journey</span>
+                    <span class="quiz-launch-btn__desc" data-i18n="gameDesc">طيّر بالهلال واجمع النجوم</span>
+                </div>
+                <span class="quiz-launch-btn__arrow">◀</span>
+            </button>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer fade-in" style="--delay: 0.9s">
+            <p data-i18n="footer">رمضان مبارك 🤲</p>
+        </footer>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       QUIZ SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="quizScreen" class="quiz-screen" style="display:none;">
+        <div class="quiz-screen__content">
+
+            <!-- Header -->
+            <div class="quiz-screen__header">
+                <button id="quizBackBtn" class="quiz-back-btn" aria-label="رجوع">
+                    <span>→</span>
+                </button>
+                <h2 class="quiz-screen__title" data-i18n="quizTitle">تحدّي رمضان</h2>
+                <div class="quiz-screen__day" id="quizDayLabel">اليوم 1</div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="quiz-card" id="quizCard">
+                <div class="quiz-card__question-number" id="quizQNumber">السؤال 1</div>
+                <p class="quiz-card__question" id="quizQuestion">—</p>
+
+                <div class="quiz-card__actions" id="quizActions">
+                    <button class="quiz-btn quiz-btn--true" id="quizBtnTrue" data-i18n="quizTrue">✅ صحيح</button>
+                    <button class="quiz-btn quiz-btn--false" id="quizBtnFalse" data-i18n="quizFalse">❌ خطأ</button>
+                </div>
+
+                <div class="quiz-card__result" id="quizResult" style="display:none;">
+                    <span class="quiz-result__icon" id="quizResultIcon"></span>
+                    <p class="quiz-result__text" id="quizResultText"></p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="quiz-stats">
+                <div class="quiz-stats__item">
+                    <span class="quiz-stats__label" data-i18n="quizSuccessRate">نسبة النجاح</span>
+                    <span class="quiz-stats__value" id="quizSuccessRate">0%</span>
+                </div>
+                <div class="quiz-stats__divider"></div>
+                <div class="quiz-stats__item">
+                    <span class="quiz-stats__label" data-i18n="quizAnswered">تمت الإجابة</span>
+                    <span class="quiz-stats__value" id="quizAnsweredCount">0/30</span>
+                </div>
+            </div>
+
+            <!-- Calendar Grid -->
+            <div class="quiz-calendar">
+                <h3 class="quiz-calendar__title" data-i18n="quizCalendarTitle">تقويم التحدّي</h3>
+                <div class="quiz-calendar__grid" id="quizCalendarGrid">
+                    <!-- 30 day cells generated by JS -->
+                </div>
+                <div class="quiz-calendar__legend">
+                    <span class="quiz-legend__item"><span class="quiz-legend__dot quiz-legend__dot--correct"></span>
+                        <span data-i18n="quizCorrect">صحيحة</span></span>
+                    <span class="quiz-legend__item"><span class="quiz-legend__dot quiz-legend__dot--wrong"></span> <span
+                            data-i18n="quizWrong">خاطئة</span></span>
+                    <span class="quiz-legend__item"><span class="quiz-legend__dot quiz-legend__dot--pending"></span>
+                        <span data-i18n="quizPending">لم تُجب</span></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       GAME SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="gameScreen" class="game-screen" style="display:none;">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- HUD -->
+        <div class="game-hud">
+            <button id="gameBackBtn" class="game-hud__back" aria-label="رجوع">→</button>
+            <div class="game-hud__score">
+                <span class="game-hud__score-icon">⭐</span>
+                <span id="gameScore">0</span>
+            </div>
+            <div class="game-hud__best">
+                <span class="game-hud__best-label" data-i18n="gameBest">أفضل</span>
+                <span id="gameBestScore">0</span>
+            </div>
+        </div>
+
+        <!-- Start Overlay -->
+        <div class="game-overlay" id="gameStartOverlay">
+            <div class="game-overlay__content">
+                <div class="game-overlay__icon">🌙</div>
+                <h2 class="game-overlay__title">Ramadan Night Journey</h2>
+                <p class="game-overlay__desc" data-i18n="gameTapToStart">اضغط للبدء</p>
+                <p class="game-overlay__hint" data-i18n="gameHint">اضغط أو المس الشاشة للطيران ✈️</p>
+            </div>
+        </div>
+
+        <!-- Game Over Overlay -->
+        <div class="game-overlay game-overlay--over" id="gameOverOverlay" style="display:none;">
+            <div class="game-overlay__content">
+                <div class="game-overlay__icon">🏆</div>
+                <h2 class="game-overlay__title" data-i18n="gameOver">انتهت اللعبة</h2>
+                <div class="game-over-stats">
+                    <div class="game-over-stat">
+                        <span class="game-over-stat__label" data-i18n="gameScoreLabel">النقاط</span>
+                        <span class="game-over-stat__value" id="gameOverScore">0</span>
+                    </div>
+                    <div class="game-over-stat">
+                        <span class="game-over-stat__label" data-i18n="gameBest">أفضل</span>
+                        <span class="game-over-stat__value" id="gameOverBest">0</span>
+                    </div>
+                </div>
+                <button class="game-restart-btn" id="gameRestartBtn" data-i18n="gameRestart">🔄 أعد اللعب</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>
