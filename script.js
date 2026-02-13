@@ -58,6 +58,9 @@ const i18n = {
     gameOver: 'انتهت اللعبة',
     gameScoreLabel: 'النقاط',
     gameRestart: '🔄 أعد اللعب',
+    /* Hub */
+    hubPrayer: 'إمساك و إفطار',
+    hubPrayerDesc: 'مواقيت الصلاة والعد التنازلي',
   },
   fr: {
     langSwitch: 'العربية',
@@ -107,6 +110,9 @@ const i18n = {
     gameOver: 'Fin de la partie',
     gameScoreLabel: 'Score',
     gameRestart: '🔄 Rejouer',
+    /* Hub */
+    hubPrayer: 'Imsak & Iftar',
+    hubPrayerDesc: 'Horaires de prière et compte à rebours',
   }
 };
 
@@ -313,6 +319,12 @@ function resolveDom() {
     quizSuccessRate: document.getElementById('quizSuccessRate'),
     quizAnsweredCount: document.getElementById('quizAnsweredCount'),
     quizCalendarGrid: document.getElementById('quizCalendarGrid'),
+    /* Hub */
+    hubScreen: document.getElementById('hubScreen'),
+    hubLangToggle: document.getElementById('hubLangToggle'),
+    hubPrayerBtn: document.getElementById('hubPrayerBtn'),
+    hubQuizBtn: document.getElementById('hubQuizBtn'),
+    hubGameBtn: document.getElementById('hubGameBtn'),
   };
 }
 
@@ -374,6 +386,7 @@ function renderWilayaList(filter = '') {
 function showWilayaScreen() {
   dom.wilayaScreen.style.display = '';
   dom.mainApp.style.display = 'none';
+  dom.hubScreen.style.display = 'none';
   renderWilayaList();
   dom.wilayaSearch.value = '';
   dom.wilayaSearch.focus();
@@ -384,9 +397,7 @@ function selectWilaya(wilaya) {
   selectedWilaya = wilaya;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(wilaya.code));
   dom.wilayaScreen.style.display = 'none';
-  dom.mainApp.style.display = '';
-  updateWilayaBadge();
-  updateUI();
+  showHub();
 }
 
 /** Update the wilaya badge text. */
@@ -634,15 +645,16 @@ function saveQuizResults(results) {
 
 /** Open the quiz screen. */
 function openQuizScreen() {
+  dom.hubScreen.style.display = 'none';
   dom.mainApp.style.display = 'none';
   dom.quizScreen.style.display = '';
   renderQuiz();
 }
 
-/** Close quiz and return to main app. */
+/** Close quiz and return to hub. */
 function closeQuizScreen() {
   dom.quizScreen.style.display = 'none';
-  dom.mainApp.style.display = '';
+  showHub();
 }
 
 /** Main quiz renderer. */
@@ -769,6 +781,30 @@ function applyDailyBackground() {
 
 
 /* ═══════════════════════════════════════════════
+   HUB NAVIGATION
+   ═══════════════════════════════════════════════ */
+
+function showHub() {
+  dom.mainApp.style.display = 'none';
+  dom.quizScreen.style.display = 'none';
+  dom.hubScreen.style.display = '';
+}
+
+function openPrayerFromHub() {
+  dom.hubScreen.style.display = 'none';
+  dom.mainApp.style.display = '';
+  updateWilayaBadge();
+  updateUI();
+}
+
+function openGameFromHub() {
+  dom.hubScreen.style.display = 'none';
+  document.getElementById('gameScreen').style.display = '';
+  RNJ.start();
+}
+
+
+/* ═══════════════════════════════════════════════
    INITIALISATION
    ═══════════════════════════════════════════════ */
 
@@ -782,14 +818,12 @@ function init() {
   /* After splash animation (~2.5s), transition to next screen */
   setTimeout(() => {
     if (hasSaved) {
-      /* Returning user → go directly to main app */
+      /* Returning user → go to hub */
       hideSplash(() => {
-        dom.mainApp.style.display = '';
-        updateWilayaBadge();
-        updateUI();
+        showHub();
       });
     } else {
-      /* First time → show wilaya selection */
+      /* First time → show wilaya selection, then hub */
       hideSplash(() => {
         showWilayaScreen();
       });
@@ -803,8 +837,21 @@ function init() {
     renderWilayaList(dom.wilayaSearch.value);
   });
 
+  /* Hub event listeners */
+  dom.hubLangToggle.addEventListener('click', () => {
+    toggleLanguage();
+  });
+  dom.hubPrayerBtn.addEventListener('click', openPrayerFromHub);
+  dom.hubQuizBtn.addEventListener('click', () => { openQuizScreen(); });
+  dom.hubGameBtn.addEventListener('click', () => { openGameFromHub(); });
+
+  /* Back to hub from prayer screen */
+  document.getElementById('backToHubBtn').addEventListener('click', () => {
+    dom.mainApp.style.display = 'none';
+    showHub();
+  });
+
   /* Quiz event listeners */
-  dom.openQuizBtn.addEventListener('click', openQuizScreen);
   dom.quizBackBtn.addEventListener('click', closeQuizScreen);
   dom.quizBtnTrue.addEventListener('click', () => handleQuizAnswer(true));
   dom.quizBtnFalse.addEventListener('click', () => handleQuizAnswer(false));

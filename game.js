@@ -493,13 +493,7 @@ const RNJ = (() => {
         elBackBtn.addEventListener('click', () => {
             stop();
             document.getElementById('gameScreen').style.display = 'none';
-            document.getElementById('mainApp').style.display = '';
-        });
-
-        document.getElementById('openGameBtn').addEventListener('click', () => {
-            document.getElementById('mainApp').style.display = 'none';
-            document.getElementById('gameScreen').style.display = '';
-            start();
+            document.getElementById('hubScreen').style.display = '';
         });
     }
 
@@ -530,7 +524,7 @@ const RNJ = (() => {
         gameState = 'idle';
     }
 
-    return { init };
+    return { init, start };
 })();
 
 /* Boot after DOM is ready */

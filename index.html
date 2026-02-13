@@ -140,6 +140,7 @@
 
         <!-- Header -->
         <header class="header fade-in">
+            <button id="backToHubBtn" class="back-to-hub-btn" aria-label="رجوع">←</button>
             <div class="header__crescent">
                 <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" class="header__crescent-svg">
                     <circle cx="40" cy="40" r="30" fill="var(--gold)" />
@@ -208,34 +209,49 @@
             <p class="day-info" id="ramadanDayInfo" data-i18n="ramadanDay">—</p>
         </section>
 
-        <!-- Quiz Launch Button -->
-        <section class="card card--quiz-launch slide-up" style="--delay: 0.65s">
-            <button id="openQuizBtn" class="quiz-launch-btn">
-                <span class="quiz-launch-btn__icon">🧠</span>
-                <div class="quiz-launch-btn__text">
-                    <span class="quiz-launch-btn__title" data-i18n="quizTitle">تحدّي رمضان</span>
-                    <span class="quiz-launch-btn__desc" data-i18n="quizDesc">سؤال ديني جديد كل يوم</span>
-                </div>
-                <span class="quiz-launch-btn__arrow">◀</span>
-            </button>
-        </section>
-
-        <!-- Game Launch Button -->
-        <section class="card card--quiz-launch slide-up" style="--delay: 0.75s">
-            <button id="openGameBtn" class="quiz-launch-btn">
-                <span class="quiz-launch-btn__icon">🌙</span>
-                <div class="quiz-launch-btn__text">
-                    <span class="quiz-launch-btn__title" data-i18n="gameTitle">Ramadan Night Journey</span>
-                    <span class="quiz-launch-btn__desc" data-i18n="gameDesc">طيّر بالهلال واجمع النجوم</span>
-                </div>
-                <span class="quiz-launch-btn__arrow">◀</span>
-            </button>
-        </section>
-
         <!-- Footer -->
-        <footer class="footer fade-in" style="--delay: 0.9s">
+        <footer class="footer fade-in" style="--delay: 0.65s">
             <p data-i18n="footer">رمضان مبارك 🤲</p>
         </footer>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       HUB SCREEN — Central Navigation
+  ═══════════════════════════════════════════════ -->
+    <div id="hubScreen" class="hub-screen" style="display:none;">
+        <div class="hub-screen__content">
+            <div class="hub-header">
+                <h1 class="hub-header__title" data-i18n="appTitle">رمضان مبارك</h1>
+                <button class="hub-header__lang" id="hubLangToggle" data-i18n="langSwitch">Français</button>
+            </div>
+
+            <div class="hub-cards">
+                <!-- Prayer Times -->
+                <button class="hub-card hub-card--prayer" id="hubPrayerBtn">
+                    <span class="hub-card__icon">🕌</span>
+                    <span class="hub-card__title" data-i18n="hubPrayer">إمساك و إفطار</span>
+                    <span class="hub-card__desc" data-i18n="hubPrayerDesc">مواقيت الصلاة والعد التنازلي</span>
+                </button>
+
+                <!-- Quiz -->
+                <button class="hub-card hub-card--quiz" id="hubQuizBtn">
+                    <span class="hub-card__icon">🧠</span>
+                    <span class="hub-card__title" data-i18n="quizTitle">تحدّي رمضان</span>
+                    <span class="hub-card__desc" data-i18n="quizDesc">سؤال ديني جديد كل يوم</span>
+                </button>
+
+                <!-- Game -->
+                <button class="hub-card hub-card--game" id="hubGameBtn">
+                    <span class="hub-card__icon">🌙</span>
+                    <span class="hub-card__title" data-i18n="gameTitle">Ramadan Night Journey</span>
+                    <span class="hub-card__desc" data-i18n="gameDesc">طيّر بالهلال واجمع النجوم</span>
+                </button>
+            </div>
+
+            <footer class="hub-footer">
+                <p data-i18n="footer">رمضان مبارك 🤲</p>
+            </footer>
+        </div>
     </div>
 
     <!-- ══════════════════════════════════════════════
