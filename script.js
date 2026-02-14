@@ -59,6 +59,13 @@ const i18n = {
     gameScoreLabel: 'النقاط',
     gameRestart: '🔄 أعد اللعب',
     hubBack: 'الرئيسية',
+    aboutBtn: 'حول التطبيق',
+    aboutRole: 'مطور ومبرمج الأنظمة',
+    aboutAppName: 'اسم التطبيق',
+    aboutVersion: 'الإصدار',
+    aboutYear: 'السنة',
+    aboutEmail: 'البريد الإلكتروني',
+    aboutFooter: 'صنع بـ ❤️ في الجزائر 🇩🇿',
     /* Hub */
     hubPrayer: 'إمساك و إفطار',
     hubPrayerDesc: 'مواقيت الصلاة والعد التنازلي',
@@ -112,6 +119,13 @@ const i18n = {
     gameScoreLabel: 'Score',
     gameRestart: '🔄 Rejouer',
     hubBack: 'Accueil',
+    aboutBtn: 'À propos',
+    aboutRole: 'Développeur & Programmeur Systèmes',
+    aboutAppName: 'Nom de l\'app',
+    aboutVersion: 'Version',
+    aboutYear: 'Année',
+    aboutEmail: 'E-mail',
+    aboutFooter: 'Fait avec ❤️ en Algérie 🇩🇿',
     /* Hub */
     hubPrayer: 'Imsak & Iftar',
     hubPrayerDesc: 'Horaires de prière et compte à rebours',
@@ -326,6 +340,10 @@ function resolveDom() {
     hubGameBtn: document.getElementById('hubGameBtn'),
     hubWilayaBtn: document.getElementById('hubWilayaBtn'),
     hubWilayaName: document.getElementById('hubWilayaName'),
+    /* About */
+    aboutScreen: document.getElementById('aboutScreen'),
+    aboutBackBtn: document.getElementById('aboutBackBtn'),
+    hubAboutBtn: document.getElementById('hubAboutBtn'),
   };
 }
 
@@ -857,6 +875,16 @@ function init() {
   /* Back to hub from prayer screen */
   document.getElementById('backToHubBtn').addEventListener('click', () => {
     dom.mainApp.style.display = 'none';
+    showHub();
+  });
+
+  /* About screen */
+  dom.hubAboutBtn.addEventListener('click', () => {
+    dom.hubScreen.style.display = 'none';
+    dom.aboutScreen.style.display = 'block';
+  });
+  dom.aboutBackBtn.addEventListener('click', () => {
+    dom.aboutScreen.style.display = 'none';
     showHub();
   });
 

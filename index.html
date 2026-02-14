@@ -273,7 +273,84 @@
 
         <!-- Footer -->
         <div class="hub-bottom">
+            <button class="hub-about-btn" id="hubAboutBtn">
+                <span>ℹ️</span>
+                <span data-i18n="aboutBtn">حول التطبيق</span>
+            </button>
             <p data-i18n="footer">رمضان مبارك 🤲</p>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       ABOUT SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="aboutScreen" class="about-screen" style="display:none;">
+        <div class="about-screen__content">
+
+            <!-- Back -->
+            <div class="about-topbar">
+                <button class="about-topbar__back" id="aboutBackBtn">
+                    <span class="about-topbar__arrow">→</span>
+                    <span data-i18n="hubBack">الرئيسية</span>
+                </button>
+            </div>
+
+            <!-- Developer Card -->
+            <div class="about-dev">
+                <div class="about-dev__photo-wrap">
+                    <img src="developer.jpg" alt="Billel Bouraba" class="about-dev__photo"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="about-dev__initials" style="display:none;">BB</div>
+                </div>
+                <h2 class="about-dev__name">Billel Bouraba</h2>
+                <p class="about-dev__role" data-i18n="aboutRole">مطور ومبرمج الأنظمة</p>
+                <span class="about-dev__brand">EMPERTECH</span>
+            </div>
+
+            <!-- App Info -->
+            <div class="about-app-card">
+                <div class="about-app-card__row">
+                    <span class="about-app-card__label" data-i18n="aboutAppName">اسم التطبيق</span>
+                    <span class="about-app-card__value" data-i18n="appTitle">رمضان كريم</span>
+                </div>
+                <div class="about-app-card__divider"></div>
+                <div class="about-app-card__row">
+                    <span class="about-app-card__label" data-i18n="aboutVersion">الإصدار</span>
+                    <span class="about-app-card__value">1.0.0</span>
+                </div>
+                <div class="about-app-card__divider"></div>
+                <div class="about-app-card__row">
+                    <span class="about-app-card__label" data-i18n="aboutYear">السنة</span>
+                    <span class="about-app-card__value">2025</span>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="about-links">
+                <a href="mailto:billel.dadi123@gmail.com" class="about-link about-link--email">
+                    <span class="about-link__icon">✉️</span>
+                    <div class="about-link__body">
+                        <span class="about-link__label" data-i18n="aboutEmail">البريد الإلكتروني</span>
+                        <span class="about-link__value">billel.dadi123@gmail.com</span>
+                    </div>
+                    <span class="about-link__arrow">↗</span>
+                </a>
+                <a href="https://www.facebook.com/billel.bouraba" target="_blank" rel="noopener"
+                    class="about-link about-link--fb">
+                    <span class="about-link__icon">📘</span>
+                    <div class="about-link__body">
+                        <span class="about-link__label">Facebook</span>
+                        <span class="about-link__value">Billel Bouraba</span>
+                    </div>
+                    <span class="about-link__arrow">↗</span>
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="about-footer">
+                <p data-i18n="aboutFooter">صنع بـ ❤️ في الجزائر 🇩🇿</p>
+            </div>
+
         </div>
     </div>
 
