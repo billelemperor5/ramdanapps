@@ -1064,7 +1064,7 @@ html[dir="ltr"] .bg-crescent {
 
 
 /* ═══════════════════════════════════════════════
-   HUB SCREEN — Central Navigation
+   HUB SCREEN — Full-Screen Premium
    ═══════════════════════════════════════════════ */
 .hub-screen {
   position: fixed;
@@ -1073,160 +1073,170 @@ html[dir="ltr"] .bg-crescent {
   background: var(--bg-primary);
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   animation: fadeIn 0.5s ease forwards;
-  overflow: hidden;
 }
 
-/* ── HERO ─── */
+/* ── Hero ─── */
 .hub-hero {
   position: relative;
-  flex: 0 0 auto;
-  background: linear-gradient(165deg, #1a1a3e 0%, #0d1b2a 40%, #0a0f1a 100%);
-  padding: 24px 20px 28px;
+  flex-shrink: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212, 168, 67, 0.12) 0%, transparent 60%),
+    var(--bg-primary);
+  padding: 20px 20px 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   overflow: hidden;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-/* Decorative stars */
+/* Animated stars */
 .hub-hero__stars {
   position: absolute;
   inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 20%, rgba(255, 255, 255, 0.6) 50%, transparent 100%),
+    radial-gradient(1px 1px at 40% 12%, rgba(255, 255, 255, 0.4) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 70% 25%, rgba(212, 168, 67, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 85% 35%, rgba(255, 255, 255, 0.3) 50%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, rgba(255, 255, 255, 0.35) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 8%, rgba(212, 168, 67, 0.45) 50%, transparent 100%),
+    radial-gradient(1px 1px at 90% 15%, rgba(255, 255, 255, 0.5) 50%, transparent 100%),
+    radial-gradient(1px 1px at 10% 50%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+  animation: starTwinkle 5s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
-.hub-star {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  color: var(--gold);
-  font-size: calc(var(--s) * 1rem);
-  opacity: 0;
-  animation: hubStarFloat var(--d) ease-in-out infinite;
-}
-
-@keyframes hubStarFloat {
-
-  0%,
-  100% {
-    opacity: 0;
-    transform: translateY(0) scale(0.8);
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.6;
   }
 
   50% {
-    opacity: 0.7;
-    transform: translateY(-6px) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
   }
 }
 
-/* Settings chips row */
-.hub-hero__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.hub-hero__content {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 400px;
-  z-index: 2;
-}
-
-.hub-chip {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  color: var(--text-secondary);
-  font-family: inherit;
-  font-size: 0.72rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.25s;
-  backdrop-filter: blur(6px);
-}
-
-.hub-chip:hover {
-  background: rgba(212, 168, 67, 0.1);
-  border-color: rgba(212, 168, 67, 0.3);
-  color: var(--gold);
-}
-
-.hub-chip--lang {
-  color: var(--gold);
-  border-color: rgba(212, 168, 67, 0.2);
-  font-weight: 600;
-}
-
-/* Crescent + title */
-.hub-hero__center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  z-index: 2;
-  padding: 8px 0 4px;
+  gap: 6px;
 }
 
+/* Topbar */
+.hub-topbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.hub-topbar__wilaya {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.hub-topbar__wilaya:hover {
+  background: rgba(212, 168, 67, 0.1);
+  border-color: rgba(212, 168, 67, 0.3);
+}
+
+.hub-topbar__wilaya-pin {
+  font-size: 0.8rem;
+}
+
+.hub-topbar__wilaya-name {
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hub-topbar__lang {
+  padding: 7px 16px;
+  background: rgba(212, 168, 67, 0.08);
+  border: 1px solid rgba(212, 168, 67, 0.2);
+  border-radius: 20px;
+  color: var(--gold);
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.hub-topbar__lang:hover {
+  background: rgba(212, 168, 67, 0.16);
+  border-color: var(--gold);
+}
+
+/* Crescent */
 .hub-hero__crescent {
-  width: 72px;
-  height: 72px;
-  filter: drop-shadow(0 0 18px rgba(212, 168, 67, 0.45));
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 0 20px rgba(212, 168, 67, 0.45));
   animation: gentlePulse 4s ease-in-out infinite;
+  margin-bottom: 4px;
 }
 
 .hub-hero__title {
   font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #f5d87a, #d4a843, #c4963c);
+  background: linear-gradient(135deg, #f5d98e, var(--gold), #c9973a);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
 }
 
-.hub-hero__sub {
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.45);
+.hub-hero__subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
   font-weight: 300;
 }
 
-/* ── BODY (cards + footer) ─── */
-.hub-body {
+/* ── Feature Cards ─── */
+.hub-features {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 20px 16px 16px;
-  gap: 16px;
-  overflow-y: auto;
+  gap: 12px;
+  padding: 20px 20px 12px;
   max-width: 440px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* ── CARDS ─── */
-.hub-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
-.hub-card {
+.hub-feature {
   position: relative;
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 14px;
-  padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s var(--ease-out);
@@ -1237,59 +1247,68 @@ html[dir="ltr"] .bg-crescent {
   overflow: hidden;
 }
 
-/* Left accent bar */
-.hub-card__accent {
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  right: 0;
-  width: 3px;
-  border-radius: 3px;
-}
-
-[dir="ltr"] .hub-card__accent {
-  right: auto;
-  left: 0;
-}
-
-.hub-card--prayer .hub-card__accent {
-  background: linear-gradient(180deg, #4ade80, #22c55e);
-}
-
-.hub-card--quiz .hub-card__accent {
-  background: linear-gradient(180deg, #f5d87a, #d4a843);
-}
-
-.hub-card--game .hub-card__accent {
-  background: linear-gradient(180deg, #818cf8, #6366f1);
-}
-
-.hub-card:hover {
+.hub-feature:hover {
+  transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.06);
-  transform: translateX(-4px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-[dir="ltr"] .hub-card:hover {
-  transform: translateX(4px);
-}
-
-.hub-card:active {
+.hub-feature:active {
   transform: scale(0.98);
 }
 
-.hub-card__icon {
+/* Glow overlay */
+.hub-feature__glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.hub-feature:hover .hub-feature__glow {
+  opacity: 1;
+}
+
+.hub-feature--prayer .hub-feature__glow {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.06) 0%, transparent 60%);
+}
+
+.hub-feature--quiz .hub-feature__glow {
+  background: linear-gradient(135deg, rgba(212, 168, 67, 0.06) 0%, transparent 60%);
+}
+
+.hub-feature--game .hub-feature__glow {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.06) 0%, transparent 60%);
+}
+
+.hub-feature__emoji {
   font-size: 1.6rem;
   flex-shrink: 0;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
-.hub-card__text {
+.hub-feature--prayer .hub-feature__emoji {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.hub-feature--quiz .hub-feature__emoji {
+  background: rgba(212, 168, 67, 0.1);
+}
+
+.hub-feature--game .hub-feature__emoji {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.hub-feature__body {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -1297,81 +1316,83 @@ html[dir="ltr"] .bg-crescent {
   min-width: 0;
 }
 
-.hub-card__title {
-  font-size: 0.92rem;
+.hub-feature__title {
+  font-size: 0.95rem;
   font-weight: 600;
 }
 
-.hub-card__desc {
-  font-size: 0.67rem;
-  color: var(--text-muted);
-  font-weight: 300;
-}
-
-.hub-card__arrow {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.15);
-  flex-shrink: 0;
-  transition: all 0.25s;
-}
-
-[dir="ltr"] .hub-card__arrow {
-  transform: scaleX(-1);
-}
-
-.hub-card:hover .hub-card__arrow {
-  color: var(--gold);
-}
-
-/* Card accent variants */
-.hub-card--prayer .hub-card__icon {
-  background: rgba(34, 197, 94, 0.1);
-}
-
-.hub-card--prayer .hub-card__title {
+.hub-feature--prayer .hub-feature__title {
   color: #4ade80;
 }
 
-.hub-card--prayer:hover {
-  border-color: rgba(34, 197, 94, 0.2);
-}
-
-.hub-card--quiz .hub-card__icon {
-  background: rgba(212, 168, 67, 0.1);
-}
-
-.hub-card--quiz .hub-card__title {
+.hub-feature--quiz .hub-feature__title {
   color: var(--gold);
 }
 
-.hub-card--quiz:hover {
-  border-color: rgba(212, 168, 67, 0.2);
-}
-
-.hub-card--game .hub-card__icon {
-  background: rgba(99, 102, 241, 0.1);
-}
-
-.hub-card--game .hub-card__title {
+.hub-feature--game .hub-feature__title {
   color: #818cf8;
 }
 
-.hub-card--game:hover {
-  border-color: rgba(99, 102, 241, 0.2);
-}
-
-/* Hub Footer */
-.hub-footer {
-  text-align: center;
-  margin-top: auto;
-  padding: 8px 0;
-}
-
-.hub-footer p {
+.hub-feature__desc {
   font-size: 0.7rem;
   color: var(--text-muted);
   font-weight: 300;
-  opacity: 0.5;
+}
+
+.hub-feature__chevron {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.25s, transform 0.25s;
+}
+
+[dir="ltr"] .hub-feature__chevron {
+  transform: scaleX(-1);
+}
+
+.hub-feature:hover .hub-feature__chevron {
+  color: var(--gold);
+}
+
+/* Card borders */
+.hub-feature--prayer {
+  border-color: rgba(34, 197, 94, 0.12);
+}
+
+.hub-feature--prayer:hover {
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.08);
+}
+
+.hub-feature--quiz {
+  border-color: rgba(212, 168, 67, 0.12);
+}
+
+.hub-feature--quiz:hover {
+  border-color: rgba(212, 168, 67, 0.3);
+  box-shadow: 0 4px 20px rgba(212, 168, 67, 0.08);
+}
+
+.hub-feature--game {
+  border-color: rgba(99, 102, 241, 0.12);
+}
+
+.hub-feature--game:hover {
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+}
+
+/* ── Footer ─── */
+.hub-bottom {
+  text-align: center;
+  padding: 14px 20px 24px;
+}
+
+.hub-bottom p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  opacity: 0.55;
 }
 
 
@@ -2068,398 +2089,6 @@ html[dir="ltr"] .game-hud__back {
   50%,
   100% {
     opacity: 0.2;
-  }
-}
-
-
-/* ═══════════════════════════════════════════════
-   PROFESSIONAL EFFECTS & MICRO-ANIMATIONS
-   ═══════════════════════════════════════════════ */
-
-/* ── 1) BUTTON RIPPLE EFFECT ─── */
-.hub-card,
-.hub-chip,
-.quiz-answer-btn,
-.game-restart-btn,
-.back-to-hub-btn,
-.card--quiz-launch {
-  position: relative;
-  overflow: hidden;
-}
-
-.hub-card::after,
-.hub-chip::after,
-.quiz-answer-btn::after,
-.card--quiz-launch::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
-      rgba(212, 168, 67, 0.25) 0%,
-      transparent 60%);
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-
-.hub-card:active::after,
-.hub-chip:active::after,
-.quiz-answer-btn:active::after,
-.card--quiz-launch:active::after {
-  opacity: 1;
-  transition: opacity 0s;
-}
-
-/* ── 2) CARD SHIMMER / SHINE SWEEP ─── */
-.hub-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      rgba(212, 168, 67, 0.06) 40%,
-      rgba(255, 255, 255, 0.08) 50%,
-      rgba(212, 168, 67, 0.06) 60%,
-      transparent 100%);
-  transform: skewX(-20deg);
-  transition: left 0.6s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hub-card:hover::before {
-  left: 130%;
-}
-
-/* ── 3) STAGGERED HUB CARD ENTRANCE ─── */
-.hub-card {
-  opacity: 0;
-  transform: translateY(20px) scale(0.96);
-  animation: hubCardEnter 0.5s var(--ease-out) forwards;
-}
-
-.hub-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.hub-card:nth-child(2) {
-  animation-delay: 0.22s;
-}
-
-.hub-card:nth-child(3) {
-  animation-delay: 0.34s;
-}
-
-@keyframes hubCardEnter {
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* ── 4) SCREEN TRANSITIONS ─── */
-.screen-enter {
-  animation: screenSlideIn 0.45s var(--ease-out) forwards;
-}
-
-.screen-exit {
-  animation: screenSlideOut 0.3s ease-in forwards;
-}
-
-@keyframes screenSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes screenSlideOut {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.97);
-  }
-}
-
-/* ── 5) GOLDEN GLOW PULSE ON PRAYER CARD ─── */
-.card--times {
-  animation: cardGlowPulse 5s ease-in-out infinite;
-}
-
-@keyframes cardGlowPulse {
-
-  0%,
-  100% {
-    box-shadow: var(--shadow-card);
-  }
-
-  50% {
-    box-shadow: var(--shadow-card), 0 0 24px rgba(212, 168, 67, 0.08);
-  }
-}
-
-/* ── 6) COUNTDOWN DIGIT CHANGE ─── */
-.countdown__digit {
-  transition: transform 0.3s var(--ease-out);
-}
-
-.countdown__digit.tick {
-  animation: digitTick 0.35s var(--ease-out);
-}
-
-@keyframes digitTick {
-  0% {
-    transform: translateY(-8px);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: translateY(2px);
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* ── 7) HUB HERO GRADIENT ANIMATION ─── */
-.hub-hero {
-  background-size: 200% 200%;
-  animation: heroGradientShift 8s ease-in-out infinite;
-}
-
-@keyframes heroGradientShift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* ── 8) HUB HERO CRESCENT FLOAT ─── */
-.hub-hero__crescent {
-  animation: crescentFloat 6s ease-in-out infinite;
-}
-
-@keyframes crescentFloat {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-    filter: drop-shadow(0 0 18px rgba(212, 168, 67, 0.45));
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(3deg);
-    filter: drop-shadow(0 0 28px rgba(212, 168, 67, 0.6));
-  }
-}
-
-/* ── 9) CARD ACCENT BAR GLOW ─── */
-.hub-card__accent {
-  animation: accentGlow 3s ease-in-out infinite;
-}
-
-@keyframes accentGlow {
-
-  0%,
-  100% {
-    opacity: 0.6;
-    box-shadow: none;
-  }
-
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 8px currentColor;
-  }
-}
-
-.hub-card--prayer .hub-card__accent {
-  color: #4ade80;
-}
-
-.hub-card--quiz .hub-card__accent {
-  color: #d4a843;
-}
-
-.hub-card--game .hub-card__accent {
-  color: #818cf8;
-}
-
-/* ── 10) QUIZ ANSWER BUTTON HOVER ─── */
-.quiz-answer-btn {
-  transition: all 0.3s var(--ease-out);
-}
-
-.quiz-answer-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.quiz-answer-btn:active {
-  transform: scale(0.95);
-}
-
-/* ── 11) SPLASH ENHANCED ─── */
-.splash__title {
-  animation: splashTitleReveal 1.2s var(--ease-out) 0.3s both;
-}
-
-@keyframes splashTitleReveal {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-    filter: blur(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-.splash__subtitle {
-  animation: splashSubReveal 1s var(--ease-out) 0.6s both;
-}
-
-@keyframes splashSubReveal {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ── 12) PRAYER CARD ICON BOUNCE ─── */
-.time-block__icon {
-  display: inline-block;
-  animation: iconBounce 2s ease-in-out infinite;
-}
-
-@keyframes iconBounce {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  25% {
-    transform: translateY(-3px);
-  }
-
-  75% {
-    transform: translateY(2px);
-  }
-}
-
-/* ── 13) HUB CHIP ENTRANCE ─── */
-.hub-chip {
-  opacity: 0;
-  animation: chipSlideIn 0.4s var(--ease-out) forwards;
-}
-
-.hub-chip:nth-child(1) {
-  animation-delay: 0s;
-}
-
-.hub-chip:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-@keyframes chipSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ── 14) BACK BUTTON SUBTLE PULSE ─── */
-.back-to-hub-btn {
-  animation: backBtnPulse 2.5s ease-in-out infinite;
-}
-
-@keyframes backBtnPulse {
-
-  0%,
-  100% {
-    box-shadow: none;
-  }
-
-  50% {
-    box-shadow: 0 0 10px rgba(212, 168, 67, 0.15);
-  }
-}
-
-/* ── 15) HUB FOOTER FADE-IN ─── */
-.hub-footer {
-  opacity: 0;
-  animation: fadeIn 1s ease 0.5s forwards;
-}
-
-/* ── 16) CARD INTERACTION — PRESS DEPTH ─── */
-.card {
-  transition: transform 0.2s var(--ease-out), box-shadow 0.3s;
-}
-
-.card:active {
-  transform: scale(0.98);
-}
-
-/* ── 17) STARS PARALLAX DRIFT ─── */
-.bg-star {
-  animation: starDrift var(--star-speed, 15s) linear infinite;
-}
-
-@keyframes starDrift {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-20px);
-  }
-}
-
-/* ── 18) HUB HERO TITLE SHIMMER ─── */
-.hub-hero__title {
-  background-size: 200% auto;
-  animation: titleShimmer 4s linear infinite;
-}
-
-@keyframes titleShimmer {
-  0% {
-    background-position: 0% center;
-  }
-
-  100% {
-    background-position: 200% center;
   }
 }
 
