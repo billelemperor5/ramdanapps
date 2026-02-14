@@ -369,13 +369,15 @@
   ═══════════════════════════════════════════════ -->
     <div id="millionaireScreen" class="mill-screen" style="display:none;">
 
-        <!-- Back -->
+        <!-- Back + Info -->
         <div class="mill-topbar">
             <button class="mill-topbar__back" id="millBackBtn">
                 <span class="mill-topbar__arrow">→</span>
                 <span data-i18n="hubBack">الرئيسية</span>
             </button>
             <div class="mill-topbar__info">
+                <span class="mill-topbar__player" id="millPlayerName">—</span>
+                <button class="mill-topbar__stats-btn" id="millStatsBtn" title="Stats">📊</button>
                 <span class="mill-topbar__level" id="millLevel">1/15</span>
                 <span class="mill-topbar__prize" id="millPrize">100 DA</span>
             </div>
@@ -383,41 +385,29 @@
 
         <!-- Lifelines -->
         <div class="mill-lifelines">
-            <button class="mill-lifeline" id="millLL5050" title="50:50">
-                <span>50:50</span>
-            </button>
-            <button class="mill-lifeline" id="millLLAudience" title="Ask the Audience">
-                <span>👥</span>
-            </button>
-            <button class="mill-lifeline" id="millLLPhone" title="Phone a Friend">
-                <span>📞</span>
-            </button>
+            <button class="mill-lifeline" id="millLL5050" title="50:50"><span>50:50</span></button>
+            <button class="mill-lifeline" id="millLLAudience" title="Audience"><span>👥</span></button>
+            <button class="mill-lifeline" id="millLLPhone" title="Phone"><span>📞</span></button>
         </div>
 
         <!-- Question -->
         <div class="mill-question-area">
-            <div class="mill-question" id="millQ">
-                السؤال هنا
-            </div>
+            <div class="mill-question" id="millQ">السؤال هنا</div>
         </div>
 
         <!-- Choices -->
         <div class="mill-choices">
             <button class="mill-choice" id="millA">
-                <span class="mill-choice__label">A</span>
-                <span class="mill-choice__text">الإجابة أ</span>
+                <span class="mill-choice__label">A</span><span class="mill-choice__text">—</span>
             </button>
             <button class="mill-choice" id="millB">
-                <span class="mill-choice__label">B</span>
-                <span class="mill-choice__text">الإجابة ب</span>
+                <span class="mill-choice__label">B</span><span class="mill-choice__text">—</span>
             </button>
             <button class="mill-choice" id="millC">
-                <span class="mill-choice__label">C</span>
-                <span class="mill-choice__text">الإجابة ج</span>
+                <span class="mill-choice__label">C</span><span class="mill-choice__text">—</span>
             </button>
             <button class="mill-choice" id="millD">
-                <span class="mill-choice__label">D</span>
-                <span class="mill-choice__text">الإجابة د</span>
+                <span class="mill-choice__label">D</span><span class="mill-choice__text">—</span>
             </button>
         </div>
 
@@ -428,20 +418,96 @@
 
         <!-- Walk Away -->
         <div class="mill-walk-away-wrap">
-            <button class="mill-walk-away" id="millWalkAway" data-i18n="millWalkAway">
-                🎩 انسحب بأرباحك
-            </button>
+            <button class="mill-walk-away" id="millWalkAway" data-i18n="millWalkAway">🎩 انسحب بأرباحك</button>
         </div>
 
-        <!-- Result Overlay -->
+        <!-- ═══ Registration Overlay ═══ -->
+        <div class="mill-reg" id="millRegOverlay" style="display:none;">
+            <div class="mill-reg__card">
+                <div class="mill-reg__logo">💰</div>
+                <h2 class="mill-reg__title" data-i18n="millTitle">من سيربح المليون؟</h2>
+                <p class="mill-reg__sub" data-i18n="millRegSub">سجّل اسمك للبدء</p>
+
+                <div class="mill-reg__fields">
+                    <input type="text" id="millRegName" class="mill-reg__input" placeholder="الاسم" autocomplete="off">
+                    <input type="text" id="millRegSurname" class="mill-reg__input" placeholder="اللقب"
+                        autocomplete="off">
+                </div>
+
+                <button class="mill-reg__start" id="millRegStart">🚀 ابدأ اللعبة</button>
+
+                <div class="mill-reg__stats">
+                    <div class="mill-reg__stat">
+                        <span class="mill-reg__stat-val" id="millRegBest">0 DA</span>
+                        <span class="mill-reg__stat-lbl" data-i18n="millBestPrize">أفضل ربح</span>
+                    </div>
+                    <div class="mill-reg__stat">
+                        <span class="mill-reg__stat-val" id="millRegGames">0</span>
+                        <span class="mill-reg__stat-lbl" data-i18n="millGamesPlayed">ألعاب لُعبت</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Result Overlay ═══ -->
         <div class="mill-result" id="millResult" style="display:none;">
             <div class="mill-result__card">
                 <span class="mill-result__icon" id="millResultIcon">🏆</span>
                 <h2 class="mill-result__title" id="millResultTitle">مبروك!</h2>
                 <p class="mill-result__prize" id="millResultPrize">1,000,000 DA</p>
                 <button class="mill-result__btn" id="millResultBtn">🔄 العب مرة أخرى</button>
+                <button class="mill-result__btn mill-result__btn--cert" id="millResultStatsBtn">🏅 شهادة الربح</button>
             </div>
         </div>
+
+        <!-- ═══ Certificate Overlay ═══ -->
+        <div class="mill-cert" id="millCertOverlay" style="display:none;">
+            <div class="mill-cert__card">
+                <div class="mill-cert__stars">✨ ⭐ ✨</div>
+                <div class="mill-cert__badge">🏅</div>
+                <h2 class="mill-cert__heading" data-i18n="millCertTitle">شهادة ربح</h2>
+                <p class="mill-cert__sub" data-i18n="millCertSub">نشهد أن</p>
+                <h1 class="mill-cert__name" id="millCertName">—</h1>
+                <p class="mill-cert__achieved" data-i18n="millCertAchieved">حقّق في لعبة "من سيربح المليون — رمضان"</p>
+                <p class="mill-cert__level" id="millCertLevel">السؤال 15/15</p>
+                <div class="mill-cert__prize-box">
+                    <span class="mill-cert__prize-label" data-i18n="millCertPrizeLabel">المبلغ المربوح</span>
+                    <span class="mill-cert__prize-val" id="millCertPrize">1,000,000 DA</span>
+                </div>
+                <p class="mill-cert__date" id="millCertDate">—</p>
+                <div class="mill-cert__seal">🌙 رمضان مبارك 🌙</div>
+                <button class="mill-cert__close" id="millCertClose" data-i18n="millCertClose">✕ إغلاق</button>
+            </div>
+        </div>
+
+        <!-- ═══ Stats Overlay ═══ -->
+        <div class="mill-stats-overlay" id="millStatsOverlay" style="display:none;">
+            <div class="mill-stats__card">
+                <h2 class="mill-stats__heading" data-i18n="millStatsTitle">📊 الإحصائيات</h2>
+                <div class="mill-stats__grid">
+                    <div class="mill-stats__item">
+                        <span class="mill-stats__val" id="millStatsGames">0</span>
+                        <span class="mill-stats__lbl" data-i18n="millGamesPlayed">ألعاب لُعبت</span>
+                    </div>
+                    <div class="mill-stats__item">
+                        <span class="mill-stats__val" id="millStatsWins">0</span>
+                        <span class="mill-stats__lbl" data-i18n="millWins">انتصارات</span>
+                    </div>
+                    <div class="mill-stats__item">
+                        <span class="mill-stats__val" id="millStatsBest">0 DA</span>
+                        <span class="mill-stats__lbl" data-i18n="millBestPrize">أفضل ربح</span>
+                    </div>
+                    <div class="mill-stats__item">
+                        <span class="mill-stats__val" id="millStatsTotal">0 DA</span>
+                        <span class="mill-stats__lbl" data-i18n="millTotalPrize">المجموع</span>
+                    </div>
+                </div>
+                <h3 class="mill-stats__hist-title" data-i18n="millHistory">📜 السجل</h3>
+                <div class="mill-stats__history" id="millStatsHistory"></div>
+                <button class="mill-stats__close" id="millStatsClose" data-i18n="millCertClose">✕ إغلاق</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- ══════════════════════════════════════════════
