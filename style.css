@@ -2148,6 +2148,475 @@ html[dir="ltr"] .game-hud__back {
 
 
 /* ═══════════════════════════════════════════════
+   ANIMATIONS & MOTION EFFECTS
+   ═══════════════════════════════════════════════ */
+
+/* ── Keyframes ─── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes gentlePulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 16px rgba(212, 168, 67, 0.3));
+  }
+
+  50% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 24px rgba(212, 168, 67, 0.5));
+  }
+}
+
+@keyframes floatY {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(212, 168, 67, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 0 28px rgba(212, 168, 67, 0.18);
+  }
+}
+
+@keyframes digitPop {
+  0% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shakeX {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-6px);
+  }
+
+  40% {
+    transform: translateX(6px);
+  }
+
+  60% {
+    transform: translateX(-4px);
+  }
+
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  70% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes starTwinkle {
+  0% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+/* ── Hub Entrance Animations ─── */
+.hub-screen .hub-topbar {
+  animation: fadeInDown 0.5s var(--ease-out) 0.1s both;
+}
+
+.hub-screen .hub-hero__crescent {
+  animation: bounceIn 0.8s var(--ease-out) 0.2s both, gentlePulse 4s ease-in-out 1s infinite;
+}
+
+.hub-screen .hub-hero__title {
+  animation: fadeInUp 0.6s var(--ease-out) 0.35s both;
+}
+
+.hub-screen .hub-hero__subtitle {
+  animation: fadeInUp 0.5s var(--ease-out) 0.45s both;
+}
+
+.hub-screen .hub-feature:nth-child(1) {
+  animation: slideInRight 0.5s var(--ease-out) 0.4s both;
+}
+
+.hub-screen .hub-feature:nth-child(2) {
+  animation: slideInRight 0.5s var(--ease-out) 0.55s both;
+}
+
+.hub-screen .hub-feature:nth-child(3) {
+  animation: slideInRight 0.5s var(--ease-out) 0.7s both;
+}
+
+[dir="ltr"] .hub-screen .hub-feature:nth-child(1) {
+  animation-name: slideInLeft;
+}
+
+[dir="ltr"] .hub-screen .hub-feature:nth-child(2) {
+  animation-name: slideInLeft;
+}
+
+[dir="ltr"] .hub-screen .hub-feature:nth-child(3) {
+  animation-name: slideInLeft;
+}
+
+.hub-screen .hub-bottom {
+  animation: fadeIn 0.6s var(--ease-out) 0.85s both;
+}
+
+/* ── Prayer Screen Animations ─── */
+.app .header {
+  animation: fadeInDown 0.6s var(--ease-out) both;
+}
+
+.app .card--date {
+  animation: slideUp 0.5s var(--ease-out) 0.15s both;
+}
+
+.app .card--times {
+  animation: slideUp 0.5s var(--ease-out) 0.3s both;
+}
+
+.app .card--countdown {
+  animation: slideUp 0.5s var(--ease-out) 0.45s both;
+}
+
+.app .card--ramadan-day {
+  animation: slideUp 0.5s var(--ease-out) 0.55s both;
+}
+
+/* ── Countdown Digit Pop ─── */
+.countdown__digit {
+  transition: transform 0.25s var(--ease-out);
+}
+
+.countdown__digit.pop {
+  animation: digitPop 0.35s var(--ease-out);
+}
+
+/* ── Card Float on Hover ─── */
+.card {
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card), 0 0 20px rgba(212, 168, 67, 0.06);
+}
+
+/* ── Hub Feature Card Hover Micro-animation ─── */
+.hub-feature__emoji {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.hub-feature:hover .hub-feature__emoji {
+  transform: scale(1.12);
+}
+
+.hub-feature:hover .hub-feature__chevron {
+  transform: translateX(-4px);
+}
+
+[dir="ltr"] .hub-feature:hover .hub-feature__chevron {
+  transform: scaleX(-1) translateX(-4px);
+}
+
+/* ── Button Ripple Effect ─── */
+.hub-feature,
+.hub-topbar__wilaya,
+.hub-topbar__lang,
+.back-to-hub-btn,
+.quiz-back-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.hub-feature::after,
+.hub-topbar__wilaya::after,
+.hub-topbar__lang::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: radial-gradient(circle, rgba(212, 168, 67, 0.12) 0%, transparent 70%);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: transform 0.5s ease;
+}
+
+.hub-feature:active::after,
+.hub-topbar__wilaya:active::after,
+.hub-topbar__lang:active::after {
+  transform: translate(-50%, -50%) scale(2.5);
+  transition: transform 0s;
+}
+
+/* ── Quiz Animations ─── */
+.quiz-screen__content {
+  animation: fadeIn 0.4s var(--ease-out) both;
+}
+
+.quiz-card {
+  animation: scaleIn 0.5s var(--ease-out) 0.2s both;
+}
+
+.quiz-answer-btn {
+  transition: transform 0.2s var(--ease-out), background 0.2s, border-color 0.2s;
+}
+
+.quiz-answer-btn:hover {
+  transform: translateY(-2px);
+}
+
+.quiz-answer-btn:active {
+  transform: scale(0.96);
+}
+
+.quiz-result.correct {
+  animation: bounceIn 0.5s var(--ease-out) both;
+}
+
+.quiz-result.wrong {
+  animation: shakeX 0.5s var(--ease-out) both;
+}
+
+/* ── Splash Crescent Float ─── */
+.splash__crescent {
+  animation: floatY 3.5s ease-in-out infinite, gentlePulse 4s ease-in-out infinite;
+}
+
+/* ── Header Crescent Glow ─── */
+.header__crescent-svg {
+  transition: filter 0.4s ease;
+}
+
+.header:hover .header__crescent-svg {
+  filter: drop-shadow(0 0 24px rgba(212, 168, 67, 0.5));
+}
+
+/* ── Prayer Time Block Shimmer ─── */
+.time-block__value {
+  background-size: 200% auto;
+  transition: color 0.3s ease;
+}
+
+/* ── Wilaya List Item Stagger ─── */
+.wilaya-item {
+  animation: fadeInUp 0.3s var(--ease-out) both;
+}
+
+.wilaya-item:nth-child(1) {
+  animation-delay: 0.02s;
+}
+
+.wilaya-item:nth-child(2) {
+  animation-delay: 0.04s;
+}
+
+.wilaya-item:nth-child(3) {
+  animation-delay: 0.06s;
+}
+
+.wilaya-item:nth-child(4) {
+  animation-delay: 0.08s;
+}
+
+.wilaya-item:nth-child(5) {
+  animation-delay: 0.10s;
+}
+
+.wilaya-item:nth-child(6) {
+  animation-delay: 0.12s;
+}
+
+.wilaya-item:nth-child(7) {
+  animation-delay: 0.14s;
+}
+
+.wilaya-item:nth-child(8) {
+  animation-delay: 0.16s;
+}
+
+.wilaya-item:nth-child(9) {
+  animation-delay: 0.18s;
+}
+
+.wilaya-item:nth-child(10) {
+  animation-delay: 0.20s;
+}
+
+/* ── Back Button Hover ─── */
+.back-to-hub-btn {
+  transition: all 0.25s var(--ease-out);
+}
+
+.back-to-hub-btn:hover {
+  background: rgba(212, 168, 67, 0.15);
+  border-color: var(--gold);
+  transform: scale(1.1);
+}
+
+.back-to-hub-btn:active {
+  transform: scale(0.9);
+}
+
+/* ── Glow Pulse on Countdown Card ─── */
+.card--countdown {
+  animation: slideUp 0.5s var(--ease-out) 0.45s both, glowPulse 3s ease-in-out 1.5s infinite;
+}
+
+
+/* ═══════════════════════════════════════════════
    Accessibility — Reduced Motion
    ═══════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
