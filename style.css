@@ -1719,6 +1719,429 @@ html[dir="ltr"] .bg-crescent {
 
 
 /* ═══════════════════════════════════════════════
+   MILLIONAIRE GAME
+   ═══════════════════════════════════════════════ */
+
+/* Hub card accent */
+.hub-feature--millionaire {
+  border-color: rgba(245, 158, 11, 0.15);
+}
+
+.hub-feature--millionaire:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.1);
+}
+
+.hub-feature--millionaire .hub-feature__emoji {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+/* Screen */
+.mill-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  background: linear-gradient(180deg, #0a0e27 0%, #0d1333 40%, #111b45 100%);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.4s var(--ease-out);
+}
+
+/* Topbar */
+.mill-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.mill-topbar__back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+
+.mill-topbar__back:hover {
+  background: rgba(212, 168, 67, 0.1);
+  border-color: rgba(212, 168, 67, 0.3);
+}
+
+.mill-topbar__arrow {
+  font-size: 1rem;
+}
+
+[dir="ltr"] .mill-topbar__back {
+  flex-direction: row-reverse;
+}
+
+[dir="ltr"] .mill-topbar__arrow {
+  transform: scaleX(-1);
+}
+
+.mill-topbar__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mill-topbar__level {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+.mill-topbar__prize {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+  background: rgba(212, 168, 67, 0.1);
+  padding: 4px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(212, 168, 67, 0.2);
+}
+
+/* Lifelines */
+.mill-lifelines {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 8px 18px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mill-lifeline {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.12);
+  border: 2px solid rgba(99, 102, 241, 0.3);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mill-lifeline:hover:not(:disabled) {
+  border-color: rgba(99, 102, 241, 0.6);
+  background: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  transform: scale(1.08);
+}
+
+.mill-lifeline:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.mill-lifeline--used {
+  opacity: 0.2 !important;
+  border-style: dashed !important;
+}
+
+/* Question Area */
+.mill-question-area {
+  padding: 14px 18px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+}
+
+.mill-question {
+  background: linear-gradient(135deg, rgba(15, 20, 55, 0.9), rgba(25, 35, 80, 0.9));
+  border: 1.5px solid rgba(212, 168, 67, 0.3);
+  border-radius: 18px;
+  padding: 20px 22px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  line-height: 1.7;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(212, 168, 67, 0.15);
+}
+
+/* Phone tip */
+.mill-phone-tip {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(99, 102, 241, 0.9);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  animation: fadeInUp 0.3s var(--ease-out);
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Choices */
+.mill-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 18px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mill-choice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, rgba(15, 20, 55, 0.8), rgba(20, 28, 65, 0.8));
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+  text-align: start;
+  line-height: 1.4;
+}
+
+.mill-choice:hover:not(:disabled) {
+  border-color: rgba(212, 168, 67, 0.4);
+  background: linear-gradient(135deg, rgba(25, 30, 65, 0.9), rgba(35, 45, 90, 0.9));
+  transform: scale(1.02);
+}
+
+.mill-choice__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(212, 168, 67, 0.15);
+  color: var(--gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.mill-choice__text {
+  flex: 1;
+}
+
+/* States */
+.mill-choice--selected {
+  border-color: rgba(245, 158, 11, 0.6) !important;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.08)) !important;
+  animation: gentlePulse 0.8s ease-in-out infinite;
+}
+
+.mill-choice--correct {
+  border-color: rgba(34, 197, 94, 0.7) !important;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.08)) !important;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
+  animation: none;
+}
+
+.mill-choice--correct .mill-choice__label {
+  background: rgba(34, 197, 94, 0.3);
+  color: #22c55e;
+}
+
+.mill-choice--wrong {
+  border-color: rgba(239, 68, 68, 0.7) !important;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.08)) !important;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);
+  animation: shakeX 0.4s ease-in-out;
+}
+
+.mill-choice--wrong .mill-choice__label {
+  background: rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+/* Money Ladder */
+.mill-ladder-wrap {
+  padding: 10px 18px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 168, 67, 0.3) transparent;
+}
+
+.mill-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mill-ladder__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.35);
+  transition: all 0.3s;
+}
+
+.mill-ladder__row--active {
+  background: rgba(212, 168, 67, 0.12);
+  border: 1px solid rgba(212, 168, 67, 0.3);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.mill-ladder__row--done {
+  color: rgba(34, 197, 94, 0.5);
+}
+
+.mill-ladder__row--safe .mill-ladder__prize {
+  color: rgba(212, 168, 67, 0.7);
+}
+
+.mill-ladder__row--safe.mill-ladder__row--active .mill-ladder__prize {
+  color: var(--gold);
+}
+
+.mill-ladder__num {
+  width: 22px;
+  font-weight: 600;
+}
+
+.mill-ladder__prize {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Walk Away */
+.mill-walk-away-wrap {
+  text-align: center;
+  padding: 8px 18px 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.mill-walk-away {
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+
+.mill-walk-away:hover:not(:disabled) {
+  background: rgba(212, 168, 67, 0.08);
+  border-color: rgba(212, 168, 67, 0.2);
+  color: var(--gold);
+}
+
+.mill-walk-away:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* Result Overlay */
+.mill-result {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s var(--ease-out);
+  backdrop-filter: blur(8px);
+}
+
+.mill-result__card {
+  background: linear-gradient(135deg, #0f1535, #1a2245);
+  border: 1.5px solid rgba(212, 168, 67, 0.3);
+  border-radius: 24px;
+  padding: 40px 36px;
+  text-align: center;
+  max-width: 340px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(212, 168, 67, 0.08);
+  animation: scaleIn 0.4s var(--ease-out);
+}
+
+.mill-result__icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.mill-result__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.mill-result__prize {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 24px;
+  text-shadow: 0 0 20px rgba(212, 168, 67, 0.3);
+}
+
+.mill-result__btn {
+  padding: 12px 32px;
+  background: linear-gradient(135deg, var(--gold), #f5d98e);
+  border: none;
+  border-radius: 14px;
+  color: #0a0e27;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+}
+
+.mill-result__btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(212, 168, 67, 0.3);
+}
+
+
+/* ═══════════════════════════════════════════════
    QUIZ — Launch Button (in Main App)
    ═══════════════════════════════════════════════ */
 .card--quiz-launch {

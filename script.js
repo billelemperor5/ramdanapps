@@ -66,6 +66,10 @@ const i18n = {
     aboutYear: 'السنة',
     aboutEmail: 'البريد الإلكتروني',
     aboutFooter: 'صنع بـ ❤️ في الجزائر 🇩🇿',
+    /* Millionaire */
+    millTitle: 'من سيربح المليون؟',
+    millDesc: 'اختبر معلوماتك الرمضانية',
+    millWalkAway: '🎩 انسحب بأرباحك',
     /* Hub */
     hubPrayer: 'إمساك و إفطار',
     hubPrayerDesc: 'مواقيت الصلاة والعد التنازلي',
@@ -126,6 +130,10 @@ const i18n = {
     aboutYear: 'Année',
     aboutEmail: 'E-mail',
     aboutFooter: 'Fait avec ❤️ en Algérie 🇩🇿',
+    /* Millionaire */
+    millTitle: 'Qui veut gagner des millions ?',
+    millDesc: 'Testez vos connaissances du Ramadan',
+    millWalkAway: '🎩 Se retirer avec les gains',
     /* Hub */
     hubPrayer: 'Imsak & Iftar',
     hubPrayerDesc: 'Horaires de prière et compte à rebours',
@@ -886,6 +894,13 @@ function init() {
   dom.aboutBackBtn.addEventListener('click', () => {
     dom.aboutScreen.style.display = 'none';
     showHub();
+  });
+
+  /* Millionaire */
+  document.getElementById('hubMillionaireBtn').addEventListener('click', () => {
+    dom.hubScreen.style.display = 'none';
+    document.getElementById('millionaireScreen').style.display = 'flex';
+    MILLIONAIRE.start();
   });
 
   /* Quiz event listeners */

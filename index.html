@@ -269,6 +269,16 @@
                 </div>
                 <span class="hub-feature__chevron">◀</span>
             </button>
+
+            <button class="hub-feature hub-feature--millionaire" id="hubMillionaireBtn">
+                <div class="hub-feature__glow"></div>
+                <span class="hub-feature__emoji">💰</span>
+                <div class="hub-feature__body">
+                    <span class="hub-feature__title" data-i18n="millTitle">من سيربح المليون؟</span>
+                    <span class="hub-feature__desc" data-i18n="millDesc">اختبر معلوماتك الرمضانية</span>
+                </div>
+                <span class="hub-feature__chevron">◀</span>
+            </button>
         </div>
 
         <!-- Footer -->
@@ -351,6 +361,86 @@
                 <p data-i18n="aboutFooter">صنع بـ ❤️ في الجزائر 🇩🇿</p>
             </div>
 
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       MILLIONAIRE SCREEN
+  ═══════════════════════════════════════════════ -->
+    <div id="millionaireScreen" class="mill-screen" style="display:none;">
+
+        <!-- Back -->
+        <div class="mill-topbar">
+            <button class="mill-topbar__back" id="millBackBtn">
+                <span class="mill-topbar__arrow">→</span>
+                <span data-i18n="hubBack">الرئيسية</span>
+            </button>
+            <div class="mill-topbar__info">
+                <span class="mill-topbar__level" id="millLevel">1/15</span>
+                <span class="mill-topbar__prize" id="millPrize">100 DA</span>
+            </div>
+        </div>
+
+        <!-- Lifelines -->
+        <div class="mill-lifelines">
+            <button class="mill-lifeline" id="millLL5050" title="50:50">
+                <span>50:50</span>
+            </button>
+            <button class="mill-lifeline" id="millLLAudience" title="Ask the Audience">
+                <span>👥</span>
+            </button>
+            <button class="mill-lifeline" id="millLLPhone" title="Phone a Friend">
+                <span>📞</span>
+            </button>
+        </div>
+
+        <!-- Question -->
+        <div class="mill-question-area">
+            <div class="mill-question" id="millQ">
+                السؤال هنا
+            </div>
+        </div>
+
+        <!-- Choices -->
+        <div class="mill-choices">
+            <button class="mill-choice" id="millA">
+                <span class="mill-choice__label">A</span>
+                <span class="mill-choice__text">الإجابة أ</span>
+            </button>
+            <button class="mill-choice" id="millB">
+                <span class="mill-choice__label">B</span>
+                <span class="mill-choice__text">الإجابة ب</span>
+            </button>
+            <button class="mill-choice" id="millC">
+                <span class="mill-choice__label">C</span>
+                <span class="mill-choice__text">الإجابة ج</span>
+            </button>
+            <button class="mill-choice" id="millD">
+                <span class="mill-choice__label">D</span>
+                <span class="mill-choice__text">الإجابة د</span>
+            </button>
+        </div>
+
+        <!-- Money Ladder -->
+        <div class="mill-ladder-wrap">
+            <div class="mill-ladder" id="millLadder"></div>
+        </div>
+
+        <!-- Walk Away -->
+        <div class="mill-walk-away-wrap">
+            <button class="mill-walk-away" id="millWalkAway" data-i18n="millWalkAway">
+                🎩 انسحب بأرباحك
+            </button>
+        </div>
+
+        <!-- Result Overlay -->
+        <div class="mill-result" id="millResult" style="display:none;">
+            <div class="mill-result__card">
+                <span class="mill-result__icon" id="millResultIcon">🏆</span>
+                <h2 class="mill-result__title" id="millResultTitle">مبروك!</h2>
+                <p class="mill-result__prize" id="millResultPrize">1,000,000 DA</p>
+                <button class="mill-result__btn" id="millResultBtn">🔄 العب مرة أخرى</button>
+            </div>
         </div>
     </div>
 
@@ -468,6 +558,7 @@
 
     <script src="script.js"></script>
     <script src="game.js"></script>
+    <script src="millionaire.js"></script>
 </body>
 
 </html>
