@@ -1034,14 +1034,10 @@ html[dir="ltr"] .bg-crescent {
 /* Prayer Screen Top Bar */
 .prayer-topbar {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
   padding: 0 var(--space-md);
   padding-top: var(--space-sm);
-}
-
-[dir="ltr"] .prayer-topbar {
-  justify-content: flex-start;
 }
 
 [dir="ltr"] .prayer-topbar__back {
