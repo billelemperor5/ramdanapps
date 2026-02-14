@@ -82,6 +82,7 @@ const i18n = {
     millCertPrizeLabel: 'المبلغ المربوح',
     millCertClose: '✕ إغلاق',
     millStatsTitle: '📊 الإحصائيات',
+    millChangeName: '✏️ تغيير الاسم',
     /* Hub */
     hubPrayer: 'إمساك و إفطار',
     hubPrayerDesc: 'مواقيت الصلاة والعد التنازلي',
@@ -158,6 +159,7 @@ const i18n = {
     millCertPrizeLabel: 'Montant gagné',
     millCertClose: '✕ Fermer',
     millStatsTitle: '📊 Statistiques',
+    millChangeName: '✏️ Changer de nom',
     /* Hub */
     hubPrayer: 'Imsak & Iftar',
     hubPrayerDesc: 'Horaires de prière et compte à rebours',

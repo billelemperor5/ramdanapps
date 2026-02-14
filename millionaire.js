@@ -278,8 +278,19 @@ const MILLIONAIRE = (() => {
 
     /* ── Stats (localStorage) ─── */
     function getStats() {
-        return JSON.parse(localStorage.getItem('mill_stats') || '{"gamesPlayed":0,"gamesWon":0,"totalPrize":0,"bestPrize":0,"bestLevel":0,"history":[]}');
+        const defaultStats = {
+            gamesPlayed: 0,
+            gamesWon: 0,
+            totalPrize: 0,
+            bestPrize: 0,
+            bestLevel: 0,
+            history: [],
+            playerName: '' // Added persistent name
+        };
+        const stored = JSON.parse(localStorage.getItem('mill_stats') || 'null');
+        return { ...defaultStats, ...stored };
     }
+
     function saveStats(stats) {
         localStorage.setItem('mill_stats', JSON.stringify(stats));
     }
@@ -330,6 +341,7 @@ const MILLIONAIRE = (() => {
             statsTotal: document.getElementById('millStatsTotal'),
             statsHistory: document.getElementById('millStatsHistory'),
             statsClose: document.getElementById('millStatsClose'),
+            statsChangeName: document.getElementById('millStatsChangeName'), // New ref
             // Top
             backBtn: document.getElementById('millBackBtn'),
             statsBtn: document.getElementById('millStatsBtn'),
@@ -411,6 +423,7 @@ const MILLIONAIRE = (() => {
             btn.style.display = '';
             btn.querySelector('.mill-choice__label').textContent = labels[i];
             btn.querySelector('.mill-choice__text').textContent = shuffledChoices[i];
+            btn.classList.remove('mill-choice--selected', 'mill-choice--correct', 'mill-choice--wrong');
         });
 
         els.levelLabel.textContent = (currentLevel + 1) + '/15';
@@ -508,6 +521,9 @@ const MILLIONAIRE = (() => {
         }
         els.resultPrize.textContent = (lang === 'ar' ? 'ربحت: ' : 'Gains: ') + formatPrize(prize);
         els.resultBtn.textContent = lang === 'ar' ? '🔄 العب مرة أخرى' : '🔄 Rejouer';
+
+        // Fix: Restart directly without registration
+        els.resultBtn.onclick = () => startGame();
 
         // Show certificate button if won something
         if (prize > 0) {
@@ -660,6 +676,11 @@ const MILLIONAIRE = (() => {
                 return;
             }
             playerName = n + ' ' + s;
+
+            // Save player name persistently
+            stats.playerName = playerName;
+            saveStats(stats);
+
             els.regOverlay.style.display = 'none';
             if (els.playerLabel) els.playerLabel.textContent = playerName;
             startGame();
@@ -676,6 +697,8 @@ const MILLIONAIRE = (() => {
         gameActive = true;
         answered = false;
 
+        els.resultOverlay.style.display = 'none'; // Ensure result is hidden
+
         els.lifelineFifty.classList.remove('mill-lifeline--used');
         els.lifelineAudience.classList.remove('mill-lifeline--used');
         els.lifelinePhone.classList.remove('mill-lifeline--used');
@@ -683,13 +706,13 @@ const MILLIONAIRE = (() => {
         buildQuestionSet();
         loadQuestion();
 
-        // Bind
+        // Bind persistence
         els.choiceBtns.forEach((btn, i) => { btn.onclick = () => selectAnswer(i); });
         els.lifelineFifty.onclick = useFiftyFifty;
         els.lifelineAudience.onclick = useAudience;
         els.lifelinePhone.onclick = usePhone;
         els.walkAwayBtn.onclick = walkAway;
-        els.resultBtn.onclick = () => showRegistration();
+        els.resultBtn.onclick = () => startGame(); // Direct Restart
         els.backBtn.onclick = () => {
             els.screen.style.display = 'none';
             document.getElementById('hubScreen').style.display = 'block';
@@ -702,9 +725,9 @@ const MILLIONAIRE = (() => {
     /* ── Public: open from hub ─── */
     function start() {
         resolveDOM();
-        showRegistration();
+        const stats = getStats();
 
-        // Bind back & stats from registration too
+        // Bind common
         els.backBtn.onclick = () => {
             els.screen.style.display = 'none';
             document.getElementById('hubScreen').style.display = 'block';
@@ -712,6 +735,27 @@ const MILLIONAIRE = (() => {
         if (els.statsBtn) els.statsBtn.onclick = showStats;
         els.certClose.onclick = () => { els.certOverlay.style.display = 'none'; };
         els.statsClose.onclick = () => { els.statsOverlay.style.display = 'none'; };
+
+        // Change Name Logic
+        if (els.statsChangeName) {
+            els.statsChangeName.onclick = () => {
+                stats.playerName = '';
+                saveStats(stats);
+                els.statsOverlay.style.display = 'none';
+                els.screen.style.display = 'none'; // Restart flow
+                document.getElementById('millionaireScreen').style.display = 'flex';
+                showRegistration();
+            };
+        }
+
+        // Check if player already registered
+        if (stats.playerName) {
+            playerName = stats.playerName;
+            if (els.playerLabel) els.playerLabel.textContent = playerName;
+            startGame();
+        } else {
+            showRegistration();
+        }
     }
 
     return { start };
