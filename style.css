@@ -1411,6 +1411,27 @@ html[dir="ltr"] .bg-crescent {
   box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
 }
 
+.hub-feature--millionaire .hub-feature__glow {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, transparent 60%);
+}
+
+.hub-feature--millionaire .hub-feature__emoji {
+  background: rgba(255, 215, 0, 0.12);
+}
+
+.hub-feature--millionaire .hub-feature__title {
+  color: #ffd700;
+}
+
+.hub-feature--millionaire {
+  border-color: rgba(255, 215, 0, 0.15);
+}
+
+.hub-feature--millionaire:hover {
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 4px 25px rgba(255, 215, 0, 0.12);
+}
+
 /* ── Footer ─── */
 .hub-bottom {
   text-align: center;
