@@ -1035,6 +1035,7 @@ html[dir="ltr"] .bg-crescent {
 .prayer-topbar {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
   padding: 0 var(--space-md);
   padding-top: var(--space-sm);
 }
