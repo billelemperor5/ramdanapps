@@ -1031,35 +1031,58 @@ html[dir="ltr"] .bg-crescent {
 }
 
 
-/* Back to Hub Button (in prayer times screen) */
-.back-to-hub-btn {
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--gold);
-  font-size: 1.1rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: all 0.2s;
+/* Prayer Screen Top Bar */
+.prayer-topbar {
+  display: flex;
+  padding: 0 var(--space-md);
+  padding-top: var(--space-sm);
+}
+
+.prayer-topbar__back {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 10;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
 }
 
-[dir="ltr"] .back-to-hub-btn {
-  right: auto;
-  left: var(--space-md);
+.prayer-topbar__back:hover {
+  background: rgba(212, 168, 67, 0.1);
+  border-color: rgba(212, 168, 67, 0.3);
 }
 
-.back-to-hub-btn:hover {
-  background: rgba(212, 168, 67, 0.15);
-  border-color: var(--gold);
+.prayer-topbar__back:active {
+  transform: scale(0.95);
+}
+
+.prayer-topbar__arrow {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s var(--ease-out);
+}
+
+[dir="ltr"] .prayer-topbar__arrow {
+  transform: scaleX(-1);
+}
+
+.prayer-topbar__back:hover .prayer-topbar__arrow {
+  transform: translateX(3px);
+}
+
+[dir="ltr"] .prayer-topbar__back:hover .prayer-topbar__arrow {
+  transform: scaleX(-1) translateX(3px);
+}
+
+.prayer-topbar__label {
+  font-size: 0.78rem;
 }
 
 
