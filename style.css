@@ -1071,157 +1071,207 @@ html[dir="ltr"] .bg-crescent {
   inset: 0;
   z-index: 700;
   background: var(--bg-primary);
-  overflow-y: auto;
-  animation: fadeIn 0.5s ease forwards;
-}
-
-.hub-screen__content {
-  max-width: 440px;
-  margin: 0 auto;
-  padding: var(--space-xl) var(--space-md) var(--space-lg);
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  min-height: 100vh;
-  min-height: 100dvh;
-  justify-content: center;
+  animation: fadeIn 0.5s ease forwards;
+  overflow: hidden;
 }
 
-/* ── Settings Bar ─── */
-.hub-settings {
+/* ── HERO ─── */
+.hub-hero {
+  position: relative;
+  flex: 0 0 auto;
+  background: linear-gradient(165deg, #1a1a3e 0%, #0d1b2a 40%, #0a0f1a 100%);
+  padding: 24px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Decorative stars */
+.hub-hero__stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hub-star {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  color: var(--gold);
+  font-size: calc(var(--s) * 1rem);
+  opacity: 0;
+  animation: hubStarFloat var(--d) ease-in-out infinite;
+}
+
+@keyframes hubStarFloat {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.8);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: translateY(-6px) scale(1);
+  }
+}
+
+/* Settings chips row */
+.hub-hero__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-sm);
+  width: 100%;
+  max-width: 400px;
+  z-index: 2;
 }
 
-.hub-settings__wilaya {
+.hub-chip {
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: 6px 12px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: all 0.25s;
-  flex: 1;
-  max-width: 200px;
-}
-
-.hub-settings__wilaya:hover {
-  border-color: var(--gold);
-  background: rgba(212, 168, 67, 0.06);
-}
-
-.hub-settings__wilaya-icon {
-  font-size: 0.85rem;
-}
-
-.hub-settings__wilaya-name {
-  flex: 1;
-  text-align: start;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 500;
-}
-
-.hub-settings__wilaya-arrow {
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  transition: transform 0.2s;
-}
-
-.hub-settings__wilaya:hover .hub-settings__wilaya-arrow {
-  color: var(--gold);
-}
-
-.hub-settings__lang {
-  padding: 6px 14px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-sm);
-  color: var(--gold);
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: var(--text-secondary);
   font-family: inherit;
   font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.25s;
-  white-space: nowrap;
+  backdrop-filter: blur(6px);
 }
 
-.hub-settings__lang:hover {
+.hub-chip:hover {
   background: rgba(212, 168, 67, 0.1);
-  border-color: var(--gold);
+  border-color: rgba(212, 168, 67, 0.3);
+  color: var(--gold);
 }
 
-/* ── Logo ─── */
-.hub-logo {
-  text-align: center;
+.hub-chip--lang {
+  color: var(--gold);
+  border-color: rgba(212, 168, 67, 0.2);
+  font-weight: 600;
+}
+
+/* Crescent + title */
+.hub-hero__center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: var(--space-sm) 0;
+  gap: 4px;
+  z-index: 2;
+  padding: 8px 0 4px;
 }
 
-.hub-logo__svg {
-  width: 64px;
-  height: 64px;
-  filter: drop-shadow(0 0 14px rgba(212, 168, 67, 0.35));
+.hub-hero__crescent {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 0 18px rgba(212, 168, 67, 0.45));
   animation: gentlePulse 4s ease-in-out infinite;
 }
 
-.hub-logo__title {
-  font-size: 1.6rem;
+.hub-hero__title {
+  font-size: 1.8rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dim));
+  background: linear-gradient(135deg, #f5d87a, #d4a843, #c4963c);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  letter-spacing: 0.02em;
 }
 
-.hub-logo__subtitle {
+.hub-hero__sub {
   font-size: 0.78rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.45);
   font-weight: 300;
 }
 
-/* ── Feature Cards ─── */
+/* ── BODY (cards + footer) ─── */
+.hub-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 16px 16px;
+  gap: 16px;
+  overflow-y: auto;
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ── CARDS ─── */
 .hub-cards {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 10px;
   width: 100%;
 }
 
 .hub-card {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md) var(--space-lg);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s var(--ease-out);
   font-family: inherit;
   color: var(--text-primary);
   width: 100%;
   text-align: start;
+  overflow: hidden;
+}
+
+/* Left accent bar */
+.hub-card__accent {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  right: 0;
+  width: 3px;
+  border-radius: 3px;
+}
+
+[dir="ltr"] .hub-card__accent {
+  right: auto;
+  left: 0;
+}
+
+.hub-card--prayer .hub-card__accent {
+  background: linear-gradient(180deg, #4ade80, #22c55e);
+}
+
+.hub-card--quiz .hub-card__accent {
+  background: linear-gradient(180deg, #f5d87a, #d4a843);
+}
+
+.hub-card--game .hub-card__accent {
+  background: linear-gradient(180deg, #818cf8, #6366f1);
 }
 
 .hub-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(-4px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+[dir="ltr"] .hub-card:hover {
+  transform: translateX(4px);
 }
 
 .hub-card:active {
@@ -1229,41 +1279,40 @@ html[dir="ltr"] .bg-crescent {
 }
 
 .hub-card__icon {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   flex-shrink: 0;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
 }
 
 .hub-card__text {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   min-width: 0;
 }
 
 .hub-card__title {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 600;
 }
 
 .hub-card__desc {
-  font-size: 0.65rem;
+  font-size: 0.67rem;
   color: var(--text-muted);
   font-weight: 300;
 }
 
 .hub-card__arrow {
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.15);
   flex-shrink: 0;
-  transition: transform 0.2s, color 0.2s;
+  transition: all 0.25s;
 }
 
 [dir="ltr"] .hub-card__arrow {
@@ -1274,69 +1323,55 @@ html[dir="ltr"] .bg-crescent {
   color: var(--gold);
 }
 
-/* Card accents */
-.hub-card--prayer {
-  border-color: rgba(34, 197, 94, 0.15);
-}
-
-.hub-card--prayer:hover {
-  border-color: rgba(34, 197, 94, 0.35);
-  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.08);
+/* Card accent variants */
+.hub-card--prayer .hub-card__icon {
+  background: rgba(34, 197, 94, 0.1);
 }
 
 .hub-card--prayer .hub-card__title {
   color: #4ade80;
 }
 
-.hub-card--prayer .hub-card__icon {
-  background: rgba(34, 197, 94, 0.08);
+.hub-card--prayer:hover {
+  border-color: rgba(34, 197, 94, 0.2);
 }
 
-.hub-card--quiz {
-  border-color: rgba(212, 168, 67, 0.15);
-}
-
-.hub-card--quiz:hover {
-  border-color: rgba(212, 168, 67, 0.35);
-  box-shadow: 0 6px 24px rgba(212, 168, 67, 0.08);
+.hub-card--quiz .hub-card__icon {
+  background: rgba(212, 168, 67, 0.1);
 }
 
 .hub-card--quiz .hub-card__title {
   color: var(--gold);
 }
 
-.hub-card--quiz .hub-card__icon {
-  background: rgba(212, 168, 67, 0.08);
+.hub-card--quiz:hover {
+  border-color: rgba(212, 168, 67, 0.2);
 }
 
-.hub-card--game {
-  border-color: rgba(99, 102, 241, 0.15);
-}
-
-.hub-card--game:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.08);
+.hub-card--game .hub-card__icon {
+  background: rgba(99, 102, 241, 0.1);
 }
 
 .hub-card--game .hub-card__title {
   color: #818cf8;
 }
 
-.hub-card--game .hub-card__icon {
-  background: rgba(99, 102, 241, 0.08);
+.hub-card--game:hover {
+  border-color: rgba(99, 102, 241, 0.2);
 }
 
 /* Hub Footer */
 .hub-footer {
   text-align: center;
-  padding-top: var(--space-xs);
+  margin-top: auto;
+  padding: 8px 0;
 }
 
 .hub-footer p {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-weight: 300;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 
@@ -2033,6 +2068,398 @@ html[dir="ltr"] .game-hud__back {
   50%,
   100% {
     opacity: 0.2;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════
+   PROFESSIONAL EFFECTS & MICRO-ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+/* ── 1) BUTTON RIPPLE EFFECT ─── */
+.hub-card,
+.hub-chip,
+.quiz-answer-btn,
+.game-restart-btn,
+.back-to-hub-btn,
+.card--quiz-launch {
+  position: relative;
+  overflow: hidden;
+}
+
+.hub-card::after,
+.hub-chip::after,
+.quiz-answer-btn::after,
+.card--quiz-launch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%),
+      rgba(212, 168, 67, 0.25) 0%,
+      transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.hub-card:active::after,
+.hub-chip:active::after,
+.quiz-answer-btn:active::after,
+.card--quiz-launch:active::after {
+  opacity: 1;
+  transition: opacity 0s;
+}
+
+/* ── 2) CARD SHIMMER / SHINE SWEEP ─── */
+.hub-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(212, 168, 67, 0.06) 40%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(212, 168, 67, 0.06) 60%,
+      transparent 100%);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hub-card:hover::before {
+  left: 130%;
+}
+
+/* ── 3) STAGGERED HUB CARD ENTRANCE ─── */
+.hub-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  animation: hubCardEnter 0.5s var(--ease-out) forwards;
+}
+
+.hub-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.hub-card:nth-child(2) {
+  animation-delay: 0.22s;
+}
+
+.hub-card:nth-child(3) {
+  animation-delay: 0.34s;
+}
+
+@keyframes hubCardEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── 4) SCREEN TRANSITIONS ─── */
+.screen-enter {
+  animation: screenSlideIn 0.45s var(--ease-out) forwards;
+}
+
+.screen-exit {
+  animation: screenSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes screenSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes screenSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.97);
+  }
+}
+
+/* ── 5) GOLDEN GLOW PULSE ON PRAYER CARD ─── */
+.card--times {
+  animation: cardGlowPulse 5s ease-in-out infinite;
+}
+
+@keyframes cardGlowPulse {
+
+  0%,
+  100% {
+    box-shadow: var(--shadow-card);
+  }
+
+  50% {
+    box-shadow: var(--shadow-card), 0 0 24px rgba(212, 168, 67, 0.08);
+  }
+}
+
+/* ── 6) COUNTDOWN DIGIT CHANGE ─── */
+.countdown__digit {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.countdown__digit.tick {
+  animation: digitTick 0.35s var(--ease-out);
+}
+
+@keyframes digitTick {
+  0% {
+    transform: translateY(-8px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(2px);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ── 7) HUB HERO GRADIENT ANIMATION ─── */
+.hub-hero {
+  background-size: 200% 200%;
+  animation: heroGradientShift 8s ease-in-out infinite;
+}
+
+@keyframes heroGradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ── 8) HUB HERO CRESCENT FLOAT ─── */
+.hub-hero__crescent {
+  animation: crescentFloat 6s ease-in-out infinite;
+}
+
+@keyframes crescentFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    filter: drop-shadow(0 0 18px rgba(212, 168, 67, 0.45));
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+    filter: drop-shadow(0 0 28px rgba(212, 168, 67, 0.6));
+  }
+}
+
+/* ── 9) CARD ACCENT BAR GLOW ─── */
+.hub-card__accent {
+  animation: accentGlow 3s ease-in-out infinite;
+}
+
+@keyframes accentGlow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    box-shadow: none;
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 8px currentColor;
+  }
+}
+
+.hub-card--prayer .hub-card__accent {
+  color: #4ade80;
+}
+
+.hub-card--quiz .hub-card__accent {
+  color: #d4a843;
+}
+
+.hub-card--game .hub-card__accent {
+  color: #818cf8;
+}
+
+/* ── 10) QUIZ ANSWER BUTTON HOVER ─── */
+.quiz-answer-btn {
+  transition: all 0.3s var(--ease-out);
+}
+
+.quiz-answer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quiz-answer-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── 11) SPLASH ENHANCED ─── */
+.splash__title {
+  animation: splashTitleReveal 1.2s var(--ease-out) 0.3s both;
+}
+
+@keyframes splashTitleReveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.splash__subtitle {
+  animation: splashSubReveal 1s var(--ease-out) 0.6s both;
+}
+
+@keyframes splashSubReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 12) PRAYER CARD ICON BOUNCE ─── */
+.time-block__icon {
+  display: inline-block;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-3px);
+  }
+
+  75% {
+    transform: translateY(2px);
+  }
+}
+
+/* ── 13) HUB CHIP ENTRANCE ─── */
+.hub-chip {
+  opacity: 0;
+  animation: chipSlideIn 0.4s var(--ease-out) forwards;
+}
+
+.hub-chip:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.hub-chip:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+@keyframes chipSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 14) BACK BUTTON SUBTLE PULSE ─── */
+.back-to-hub-btn {
+  animation: backBtnPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes backBtnPulse {
+
+  0%,
+  100% {
+    box-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 10px rgba(212, 168, 67, 0.15);
+  }
+}
+
+/* ── 15) HUB FOOTER FADE-IN ─── */
+.hub-footer {
+  opacity: 0;
+  animation: fadeIn 1s ease 0.5s forwards;
+}
+
+/* ── 16) CARD INTERACTION — PRESS DEPTH ─── */
+.card {
+  transition: transform 0.2s var(--ease-out), box-shadow 0.3s;
+}
+
+.card:active {
+  transform: scale(0.98);
+}
+
+/* ── 17) STARS PARALLAX DRIFT ─── */
+.bg-star {
+  animation: starDrift var(--star-speed, 15s) linear infinite;
+}
+
+@keyframes starDrift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-20px);
+  }
+}
+
+/* ── 18) HUB HERO TITLE SHIMMER ─── */
+.hub-hero__title {
+  background-size: 200% auto;
+  animation: titleShimmer 4s linear infinite;
+}
+
+@keyframes titleShimmer {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
   }
 }
 

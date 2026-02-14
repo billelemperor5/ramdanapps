@@ -589,9 +589,16 @@ function startCountdown(sched, now) {
 
     dom.countdownLabel.textContent = i18n[currentLang][labelKey];
     const diff = target - current;
+    const newSecs = pad(Math.floor((diff % 60000) / 1000));
+    /* Tick animation on seconds digit */
+    if (dom.cdSeconds.textContent !== newSecs) {
+      dom.cdSeconds.classList.remove('tick');
+      void dom.cdSeconds.offsetWidth; /* force reflow */
+      dom.cdSeconds.classList.add('tick');
+    }
     dom.cdHours.textContent = pad(Math.floor(diff / 3600000));
     dom.cdMinutes.textContent = pad(Math.floor((diff % 3600000) / 60000));
-    dom.cdSeconds.textContent = pad(Math.floor((diff % 60000) / 1000));
+    dom.cdSeconds.textContent = newSecs;
   }
 
   tick();
@@ -642,16 +649,17 @@ function saveQuizResults(results) {
 
 /** Open the quiz screen. */
 function openQuizScreen() {
-  dom.hubScreen.style.display = 'none';
   dom.mainApp.style.display = 'none';
-  dom.quizScreen.style.display = '';
-  renderQuiz();
+  animateScreenSwitch(dom.hubScreen, dom.quizScreen, () => {
+    renderQuiz();
+  });
 }
 
 /** Close quiz and return to hub. */
 function closeQuizScreen() {
-  dom.quizScreen.style.display = 'none';
-  showHub();
+  animateScreenSwitch(dom.quizScreen, dom.hubScreen, () => {
+    showHub();
+  });
 }
 
 /** Main quiz renderer. */
@@ -778,6 +786,44 @@ function applyDailyBackground() {
 
 
 /* ═══════════════════════════════════════════════
+   ANIMATION UTILITIES
+   ═══════════════════════════════════════════════ */
+
+/** Animate screen switch: exit old, enter new */
+function animateScreenSwitch(hideEl, showEl, onDone) {
+  if (hideEl) {
+    hideEl.classList.add('screen-exit');
+    setTimeout(() => {
+      hideEl.style.display = 'none';
+      hideEl.classList.remove('screen-exit');
+      showEl.style.display = '';
+      showEl.classList.add('screen-enter');
+      setTimeout(() => showEl.classList.remove('screen-enter'), 450);
+      if (onDone) onDone();
+    }, 280);
+  } else {
+    showEl.style.display = '';
+    showEl.classList.add('screen-enter');
+    setTimeout(() => showEl.classList.remove('screen-enter'), 450);
+    if (onDone) onDone();
+  }
+}
+
+/** Add ripple effect position to element on click */
+function initRippleEffects() {
+  document.querySelectorAll('.hub-card, .hub-chip, .quiz-answer-btn, .card--quiz-launch').forEach(el => {
+    el.addEventListener('pointerdown', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(0);
+      const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(0);
+      el.style.setProperty('--ripple-x', x + '%');
+      el.style.setProperty('--ripple-y', y + '%');
+    });
+  });
+}
+
+
+/* ═══════════════════════════════════════════════
    HUB NAVIGATION
    ═══════════════════════════════════════════════ */
 
@@ -785,6 +831,8 @@ function showHub() {
   dom.mainApp.style.display = 'none';
   dom.quizScreen.style.display = 'none';
   dom.hubScreen.style.display = '';
+  dom.hubScreen.classList.add('screen-enter');
+  setTimeout(() => dom.hubScreen.classList.remove('screen-enter'), 450);
   /* Update wilaya name in hub */
   if (selectedWilaya && dom.hubWilayaName) {
     const name = currentLang === 'ar' ? selectedWilaya.ar : selectedWilaya.fr;
@@ -793,16 +841,17 @@ function showHub() {
 }
 
 function openPrayerFromHub() {
-  dom.hubScreen.style.display = 'none';
-  dom.mainApp.style.display = '';
-  updateWilayaBadge();
-  updateUI();
+  animateScreenSwitch(dom.hubScreen, dom.mainApp, () => {
+    updateWilayaBadge();
+    updateUI();
+  });
 }
 
 function openGameFromHub() {
-  dom.hubScreen.style.display = 'none';
-  document.getElementById('gameScreen').style.display = '';
-  RNJ.start();
+  const gameScreen = document.getElementById('gameScreen');
+  animateScreenSwitch(dom.hubScreen, gameScreen, () => {
+    RNJ.start();
+  });
 }
 
 
@@ -837,6 +886,9 @@ function init() {
     renderWilayaList(dom.wilayaSearch.value);
   });
 
+  /* Init ripple effects for interactive elements */
+  initRippleEffects();
+
   /* Hub event listeners */
   dom.hubLangToggle.addEventListener('click', () => {
     toggleLanguage();
@@ -854,8 +906,9 @@ function init() {
 
   /* Back to hub from prayer screen */
   document.getElementById('backToHubBtn').addEventListener('click', () => {
-    dom.mainApp.style.display = 'none';
-    showHub();
+    animateScreenSwitch(dom.mainApp, dom.hubScreen, () => {
+      showHub();
+    });
   });
 
   /* Quiz event listeners */
