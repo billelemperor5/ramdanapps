@@ -382,10 +382,14 @@ const MILLIONAIRE = (() => {
     /* ── Render Money Ladder ─── */
     function renderLadder() {
         els.ladder.innerHTML = '';
+        let activeRow = null;
         for (let i = PRIZES.length - 1; i >= 0; i--) {
             const row = document.createElement('div');
             row.className = 'mill-ladder__row';
-            if (i === currentLevel) row.classList.add('mill-ladder__row--active');
+            if (i === currentLevel) {
+                row.classList.add('mill-ladder__row--active');
+                activeRow = row;
+            }
             if (i < currentLevel) row.classList.add('mill-ladder__row--done');
             if (SAFE_LEVELS.includes(i)) row.classList.add('mill-ladder__row--safe');
 
@@ -400,6 +404,13 @@ const MILLIONAIRE = (() => {
             row.appendChild(num);
             row.appendChild(prize);
             els.ladder.appendChild(row);
+        }
+
+        // Auto-scroll to active row
+        if (activeRow) {
+            setTimeout(() => {
+                activeRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
         }
     }
 
