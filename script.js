@@ -93,8 +93,8 @@ const i18n = {
   },
   fr: {
     langSwitch: 'العربية',
-    appTitle: 'Ramadan Karim',
-    appSubtitle: 'Le mois de la miséricorde',
+    appTitle: 'Ramadan Kareem',
+    appSubtitle: 'Le mois de la miséricorde et du pardon',
     gregorianDate: 'Date grégorienne',
     hijriDate: 'Date hégirien',
     imsakLabel: 'Imsak',
@@ -345,6 +345,7 @@ let dom = {};
 function resolveDom() {
   dom = {
     splashScreen: document.getElementById('splashScreen'),
+    langScreen: document.getElementById('langScreen'),
     wilayaScreen: document.getElementById('wilayaScreen'),
     mainApp: document.getElementById('mainApp'),
     wilayaList: document.getElementById('wilayaList'),
@@ -399,7 +400,24 @@ function hideSplash(callback) {
   setTimeout(() => {
     dom.splashScreen.style.display = 'none';
     if (callback) callback();
-  }, 650);
+  }, 1000);
+}
+
+/** Transition logic for onboarding */
+window.setInitialLang = function (lang) {
+  currentLang = lang;
+  applyLanguage();
+
+  dom.langScreen.style.opacity = '0';
+  setTimeout(() => {
+    dom.langScreen.style.display = 'none';
+    showWilayaScreen();
+  }, 400);
+};
+
+function showLangScreen() {
+  dom.langScreen.style.display = 'flex';
+  dom.langScreen.style.opacity = '1';
 }
 
 
@@ -431,26 +449,25 @@ function renderWilayaList(filter = '') {
   }
 
   filtered.forEach(w => {
-    const btn = document.createElement('button');
-    btn.className = 'wilaya-item';
-    btn.innerHTML = `
-      <span class="wilaya-item__code">${String(w.code).padStart(2, '0')}</span>
-      <span class="wilaya-item__name">${currentLang === 'ar' ? w.ar : w.fr}</span>
-      <span class="wilaya-item__arrow">${currentLang === 'ar' ? '◀' : '▶'}</span>
+    const card = document.createElement('button');
+    card.className = 'wilaya-card';
+    card.innerHTML = `
+      <span class="wilaya-card__code">${String(w.code).padStart(2, '0')}</span>
+      <span class="wilaya-card__name">${currentLang === 'ar' ? w.ar : w.fr}</span>
     `;
-    btn.addEventListener('click', () => selectWilaya(w));
-    container.appendChild(btn);
+    card.addEventListener('click', () => selectWilaya(w));
+    container.appendChild(card);
   });
 }
 
 /** Show the wilaya selection screen. */
 function showWilayaScreen() {
-  dom.wilayaScreen.style.display = '';
+  dom.wilayaScreen.style.display = 'flex';
+  dom.wilayaScreen.style.opacity = '1';
   dom.mainApp.style.display = 'none';
   dom.hubScreen.style.display = 'none';
   renderWilayaList();
   dom.wilayaSearch.value = '';
-  dom.wilayaSearch.focus();
 }
 
 /** Handle wilaya selection. */
@@ -887,9 +904,9 @@ function init() {
         showHub();
       });
     } else {
-      /* First time → show wilaya selection, then hub */
+      /* First time → show language selection */
       hideSplash(() => {
-        showWilayaScreen();
+        showLangScreen();
       });
     }
   }, 2500);

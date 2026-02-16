@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#0a0e1a" />
     <meta name="description" content="تطبيق رمضان — أوقات الإمساك والإفطار مع العد التنازلي لجميع ولايات الجزائر" />
-    <title>رمضان كريم</title>
+    <title>Ramadan Daily</title>
 
     <!-- Google Fonts: Tajawal (Arabic) + Inter (French) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,75 +24,63 @@
        SPLASH SCREEN
   ═══════════════════════════════════════════════ -->
     <div id="splashScreen" class="splash">
-        <div class="splash__bg-stars" aria-hidden="true">
-            <span class="splash-star splash-star--1"></span>
-            <span class="splash-star splash-star--2"></span>
-            <span class="splash-star splash-star--3"></span>
-            <span class="splash-star splash-star--4"></span>
-            <span class="splash-star splash-star--5"></span>
-            <span class="splash-star splash-star--6"></span>
-            <span class="splash-star splash-star--7"></span>
-            <span class="splash-star splash-star--8"></span>
-        </div>
+        <div class="splash__bg" aria-hidden="true"></div>
         <div class="splash__content">
-            <svg class="splash__crescent" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="60" cy="60" r="48" fill="var(--gold)" />
-                <circle cx="78" cy="50" r="42" fill="var(--bg-primary)" />
-            </svg>
-            <h1 class="splash__title">رمضان كريم</h1>
-            <p class="splash__subtitle">Ramadan Karim</p>
+            <div class="splash__logo">✨</div>
+            <h1 class="splash__title">Ramadan Daily</h1>
+            <p class="splash__subtitle">Ramadan Kareem</p>
             <div class="splash__loader">
-                <div class="splash__loader-track">
-                    <div class="splash__loader-fill"></div>
-                </div>
-                <span class="splash__loader-text">جاري التحميل...</span>
+                <div class="splash__loader-bar"></div>
             </div>
-        </div>
-        <div class="splash__mosque" aria-hidden="true">
-            <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg" class="splash__mosque-svg">
-                <!-- Mosque silhouette -->
-                <rect x="40" y="60" width="320" height="60" fill="var(--gold)" opacity="0.06" />
-                <rect x="70" y="40" width="60" height="80" rx="2" fill="var(--gold)" opacity="0.08" />
-                <rect x="270" y="40" width="60" height="80" rx="2" fill="var(--gold)" opacity="0.08" />
-                <!-- Dome -->
-                <ellipse cx="200" cy="45" rx="60" ry="35" fill="var(--gold)" opacity="0.07" />
-                <!-- Minarets -->
-                <rect x="85" y="10" width="6" height="50" rx="3" fill="var(--gold)" opacity="0.1" />
-                <rect x="309" y="10" width="6" height="50" rx="3" fill="var(--gold)" opacity="0.1" />
-                <circle cx="88" cy="8" r="4" fill="var(--gold)" opacity="0.12" />
-                <circle cx="312" cy="8" r="4" fill="var(--gold)" opacity="0.12" />
-            </svg>
         </div>
     </div>
 
     <!-- ══════════════════════════════════════════════
-       WILAYA SELECTION SCREEN
+       LANGUAGE SELECTION SCREEN
   ═══════════════════════════════════════════════ -->
-    <div id="wilayaScreen" class="wilaya-screen" style="display:none;">
-        <div class="wilaya-screen__content">
-            <div class="wilaya-screen__header">
-                <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="wilaya-screen__icon">
-                    <circle cx="30" cy="30" r="22" fill="none" stroke="var(--gold)" stroke-width="1.5" opacity="0.6" />
-                    <circle cx="30" cy="24" r="4" fill="var(--gold)" opacity="0.8" />
-                    <path d="M30 28 L30 42" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"
-                        opacity="0.8" />
-                    <path d="M24 38 L30 42 L36 38" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"
-                        fill="none" opacity="0.8" />
-                </svg>
-                <h2 class="wilaya-screen__title" data-i18n="selectWilayaTitle">اختر ولايتك</h2>
-                <p class="wilaya-screen__desc" data-i18n="selectWilayaDesc">لعرض مواقيت الإمساك والإفطار الخاصة بمنطقتك
+    <div id="langScreen" class="onboard-screen" style="display:none;">
+        <div class="onboard-screen__content">
+            <div class="onboard-screen__header">
+                <div class="onboard-screen__icon">🌍</div>
+                <h2 class="onboard-screen__title">اختر اللغة / Choisir la langue</h2>
+                <p class="onboard-screen__desc">يرجى اختيار لغتك المفضلة للمتابعة</p>
+            </div>
+            <div class="lang-grid">
+                <button class="lang-card" onclick="setInitialLang('ar')">
+                    <span class="lang-card__flag">🇩🇿</span>
+                    <span class="lang-card__name">العربية</span>
+                    <span class="lang-card__sub">Arabe</span>
+                </button>
+                <button class="lang-card" onclick="setInitialLang('fr')">
+                    <span class="lang-card__flag">🇫🇷</span>
+                    <span class="lang-card__name">Français</span>
+                    <span class="lang-card__sub">Français</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+       WILAYA SELECTION SCREEN (Redesigned)
+  ═══════════════════════════════════════════════ -->
+    <div id="wilayaScreen" class="onboard-screen" style="display:none;">
+        <div class="onboard-screen__content">
+            <div class="onboard-screen__header">
+                <div class="onboard-screen__icon">📍</div>
+                <h2 class="onboard-screen__title" data-i18n="selectWilayaTitle">اختر ولايتك</h2>
+                <p class="onboard-screen__desc" data-i18n="selectWilayaDesc">لعرض مواقيت الإمساك والإفطار الخاصة بمنطقتك
                 </p>
             </div>
 
-            <!-- Search -->
-            <div class="wilaya-screen__search-wrap">
-                <input type="text" id="wilayaSearch" class="wilaya-screen__search" placeholder="🔍 ابحث عن ولايتك..."
+            <div class="onboard-screen__search-wrap">
+                <input type="text" id="wilayaSearch" class="onboard-screen__search" placeholder="🔍 ابحث عن ولايتك..."
                     data-i18n-placeholder="searchPlaceholder" autocomplete="off" />
             </div>
 
-            <!-- List -->
-            <div class="wilaya-screen__list" id="wilayaList">
-                <!-- Populated by JS -->
+            <div class="wilaya-list-container">
+                <div class="wilaya-grid" id="wilayaList">
+                    <!-- Populated by JS -->
+                </div>
             </div>
         </div>
     </div>
@@ -308,7 +296,8 @@
             <!-- Developer Card -->
             <div class="about-dev">
                 <div class="about-dev__photo-wrap">
-                    <img src="developer.jpg" alt="Billel Bouraba" class="about-dev__photo"
+                    <img src="619282035_3218494675019843_2525250727912434411_n.jpg" alt="Billel Bouraba"
+                        class="about-dev__photo"
                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                     <div class="about-dev__initials" style="display:none;">BB</div>
                 </div>
@@ -321,7 +310,7 @@
             <div class="about-app-card">
                 <div class="about-app-card__row">
                     <span class="about-app-card__label" data-i18n="aboutAppName">اسم التطبيق</span>
-                    <span class="about-app-card__value" data-i18n="appTitle">رمضان كريم</span>
+                    <span class="about-app-card__value">Ramadan Daily</span>
                 </div>
                 <div class="about-app-card__divider"></div>
                 <div class="about-app-card__row">
