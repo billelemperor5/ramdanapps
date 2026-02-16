@@ -5,13 +5,46 @@
 const MILLIONAIRE = (() => {
     'use strict';
 
-    /* ── Money Ladder ─── */
+    /* ── Money Ladder (25 Levels) ─── */
     const PRIZES = [
-        100, 200, 300, 500, 1000,
-        2000, 4000, 8000, 16000, 32000,
-        64000, 125000, 250000, 500000, 1000000
+        100, 200, 300, 500, 1000,        // 1-5 (Safe at 1,000)
+        2000, 3000, 5000, 7000, 10000, 15000, 20000, // 6-12 (Safe at 20,000)
+        30000, 40000, 60000, 80000, 120000, 180000, 250000, // 13-19 (Safe at 250,000)
+        350000, 450000, 600000, 800000, 900000, 1000000 // 20-25 (Finish)
     ];
-    const SAFE_LEVELS = [4, 9]; // 1,000 DA & 32,000 DA
+    const SAFE_LEVELS = [4, 11, 18]; // 5th, 12th, 19th questions
+
+    // Pool of extra distractors (Categorized to keep context relevant)
+    const EXTRA_POOLS = {
+        num: {
+            ar: ['7', '12', '3', '40', '10', '70', '9', '11', '17', '29', '31', '114', '6236', '60', '30'],
+            fr: ['7', '12', '3', '40', '10', '70', '9', '11', '17', '29', '31', '114', '6236', '60', '30']
+        },
+        person: {
+            ar: ['جبريل عليه السلام', 'ميكائيل عليه السلام', 'بلال بن رباح', 'حمزة بن عبد المطلب', 'خالد بن الوليد', 'علي بن أبي طالب', 'عمر بن الخطاب', 'عثمان بن عفان', 'أبو بكر الصديق', 'خديجة بنت خويلد', 'عائشة رضي الله عنها'],
+            fr: ['Jibreel', 'Mikaeel', 'Bilal ibn Rabah', 'Hamza', 'Khalid ibn al-Walid', 'Ali ibn Abi Talib', 'Omar ibn al-Khattab', 'Othman', 'Abu Bakr', 'Khadidja', 'Aïcha']
+        },
+        place: {
+            ar: ['مكة المكرمة', 'المدينة المنورة', 'بيت المقدس', 'غار حراء', 'غار ثور', 'جبل أحد', 'مسجد قباء', 'الطائف', 'تبوك', 'خيبر'],
+            fr: ['La Mecque', 'Médine', 'Jérusalem', 'Grotte Hira', 'Grotte Thawr', 'Mont Uhud', 'Mosquée Quba', 'Taif', 'Tabuk', 'Khaybar']
+        },
+        time: {
+            ar: ['شعبان', 'رجب', 'شوال', 'ذو الحجة', 'محرم', 'ليلة القدر', 'ليلة العيد', 'العشر الأواخر', 'وقت الضحى', 'الثلث الأخير من الليل'],
+            fr: ['Chaabane', 'Rajab', 'Shawwal', 'Dhul Hijja', 'Muharram', 'Laylat al-Qadr', 'Nuit de l\'Aïd', '10 dernières nuits', 'Heure du Doha', 'Dernier tiers de la nuit']
+        },
+        ritual: {
+            ar: ['الاعتكاف', 'العمرة', 'الحج', 'صدقة الجارية', 'صلاة التراويح', 'صلاة الوتر', 'صلاة الضحى', 'قيام الليل', 'بر الوالدين', 'إفطار صائم'],
+            fr: ['I\'tikaf', 'Omra', 'Hajj', 'Sadaqa Jariya', 'Tarawih', 'Witr', 'Doha', 'Qiyam al-Layl', 'Respect des parents', 'Iftar d\'un jeûneur']
+        },
+        quran: {
+            ar: ['سورة البقرة', 'سورة الفاتحة', 'سورة آل عمران', 'سورة الكهف', 'سورة يس', 'سورة الإخلاص', 'سورة الملك', 'آية الكرسي', 'ثلاثون جزءاً', 'ستون حزباً'],
+            fr: ['Al-Baqara', 'Al-Fatiha', 'Ali Imran', 'Al-Kahf', 'Ya-Sin', 'Al-Ikhlas', 'Al-Mulk', 'Ayat al-Kursi', '30 Juz', '60 Hizb']
+        },
+        lang: {
+            ar: ['العبرية', 'الفارسية', 'اللاتينية', 'اليونانية', 'السريانية', 'الآرامية', 'القبطية', 'الحميرية'],
+            fr: ['Hébreu', 'Persan', 'Latin', 'Grec', 'Syriaque', 'Araméen', 'Copte', 'Himyarite']
+        }
+    };
 
     /* ══════════════════════════════════════════════════════
        QUESTION DATABASE — 60 Questions, 3 Difficulty Tiers
@@ -270,7 +303,7 @@ const MILLIONAIRE = (() => {
     let currentLevel = 0;
     let currentQuestion = null;
     let gameQuestions = [];
-    let lifelines = { fifty: true, audience: true, phone: true };
+    let lifelines = { fifty: true, audience: true, phone: true, expert: true, switch: true };
     let answered = false;
     let gameActive = false;
     let lang = 'ar';
@@ -318,6 +351,8 @@ const MILLIONAIRE = (() => {
             lifelineFifty: document.getElementById('millLL5050'),
             lifelineAudience: document.getElementById('millLLAudience'),
             lifelinePhone: document.getElementById('millLLPhone'),
+            lifelineExpert: document.getElementById('millLLExpert'),
+            lifelineSwitch: document.getElementById('millLLSwitch'),
             walkAwayBtn: document.getElementById('millWalkAway'),
             // Intro
             introOverlay: document.getElementById('millIntroOverlay'),
@@ -374,11 +409,11 @@ const MILLIONAIRE = (() => {
         return d.toLocaleDateString(lang === 'ar' ? 'ar-DZ' : 'fr-DZ', { year: 'numeric', month: 'long', day: 'numeric' });
     }
 
-    /* ── Build 15 questions (5 easy + 5 medium + 5 hard) ─── */
+    /* ── Build 25 questions (8 easy + 8 medium + 9 hard) ─── */
     function buildQuestionSet() {
-        const easy = shuffle(QUESTIONS_EASY).slice(0, 5);
-        const medium = shuffle(QUESTIONS_MEDIUM).slice(0, 5);
-        const hard = shuffle(QUESTIONS_HARD).slice(0, 5);
+        const easy = shuffle(QUESTIONS_EASY).slice(0, 8);
+        const medium = shuffle(QUESTIONS_MEDIUM).slice(0, 8);
+        const hard = shuffle(QUESTIONS_HARD).slice(0, 9);
         gameQuestions = [...easy, ...medium, ...hard];
     }
 
@@ -424,31 +459,59 @@ const MILLIONAIRE = (() => {
         currentQuestion = gameQuestions[currentLevel];
 
         const correctText = currentQuestion.choices[lang][currentQuestion.correct];
-        const shuffledChoices = shuffle(currentQuestion.choices[lang]);
-        const newCorrectIdx = shuffledChoices.indexOf(correctText);
-        currentQuestion._shuffled = shuffledChoices;
+        const baseChoices = [...currentQuestion.choices[lang]];
+
+        // Determine best extra pool based on existing choices
+        let selectedPool = EXTRA_POOLS.ritual[lang]; // Default
+        const sample = baseChoices[0].toLowerCase();
+
+        // Simple heuristic detection
+        if (!isNaN(sample) || sample.match(/^[0-9]+$/)) {
+            selectedPool = EXTRA_POOLS.num[lang];
+        } else if (sample.includes('سورة') || sample.includes('al-') || sample.includes('sourate')) {
+            selectedPool = EXTRA_POOLS.quran[lang];
+        } else if (EXTRA_POOLS.lang.ar.includes(sample) || EXTRA_POOLS.lang.fr.some(l => sample.includes(l.toLowerCase()))) {
+            selectedPool = EXTRA_POOLS.lang[lang];
+        } else if (currentQuestion[lang].includes('أين') || currentQuestion[lang].includes('où') || currentQuestion[lang].includes('مدينة') || currentQuestion[lang].includes('غار')) {
+            selectedPool = EXTRA_POOLS.place[lang];
+        } else if (currentQuestion[lang].includes('متى') || currentQuestion[lang].includes('شهر') || sample.includes('رمضان') || sample.includes('شوال')) {
+            selectedPool = EXTRA_POOLS.time[lang];
+        } else if (sample.includes(' ') || sample.length > 10) {
+            selectedPool = EXTRA_POOLS.person[lang];
+        }
+
+        const extras = shuffle(selectedPool)
+            .filter(d => !baseChoices.includes(d))
+            .slice(0, 4);
+
+        const finalChoices = shuffle([...baseChoices, ...extras]);
+        const newCorrectIdx = finalChoices.indexOf(correctText);
+
+        currentQuestion._shuffled = finalChoices;
         currentQuestion._correctIdx = newCorrectIdx;
 
         els.question.textContent = currentQuestion[lang];
-        const labels = ['A', 'B', 'C', 'D'];
         els.choiceBtns.forEach((btn, i) => {
             btn.className = 'mill-choice';
             btn.disabled = false;
-            btn.style.display = '';
-            btn.querySelector('.mill-choice__label').textContent = labels[i];
-            btn.querySelector('.mill-choice__text').textContent = shuffledChoices[i];
+            btn.style.display = 'flex';
+            btn.querySelector('.mill-choice__label').textContent = (i + 1);
+            btn.querySelector('.mill-choice__text').textContent = finalChoices[i];
             btn.classList.remove('mill-choice--selected', 'mill-choice--correct', 'mill-choice--wrong');
         });
 
-        els.levelLabel.textContent = (currentLevel + 1) + '/15';
+        els.levelLabel.textContent = (currentLevel + 1) + '/25';
         els.prizeLabel.textContent = formatPrize(PRIZES[currentLevel]);
         renderLadder();
 
+        // 5 Lifelines
         els.lifelineFifty.disabled = !lifelines.fifty;
         els.lifelineAudience.disabled = !lifelines.audience;
         els.lifelinePhone.disabled = !lifelines.phone;
-        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false;
+        els.lifelineExpert.disabled = !lifelines.expert;
+        els.lifelineSwitch.disabled = !lifelines.switch;
 
+        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false;
         els.resultOverlay.style.display = 'none';
     }
 
@@ -601,6 +664,7 @@ const MILLIONAIRE = (() => {
     }
 
     /* ── Lifelines ─── */
+    /* ── Lifelines ─── */
     function useFiftyFifty() {
         if (!lifelines.fifty || answered) return;
         lifelines.fifty = false;
@@ -608,10 +672,11 @@ const MILLIONAIRE = (() => {
         els.lifelineFifty.classList.add('mill-lifeline--used');
 
         const wrongIdxs = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 8; i++) {
             if (i !== currentQuestion._correctIdx) wrongIdxs.push(i);
         }
-        shuffle(wrongIdxs).slice(0, 2).forEach(i => {
+        // Remove 4 wrong answers out of 7
+        shuffle(wrongIdxs).slice(0, 4).forEach(i => {
             els.choiceBtns[i].style.display = 'none';
         });
     }
@@ -623,14 +688,14 @@ const MILLIONAIRE = (() => {
         els.lifelineAudience.classList.add('mill-lifeline--used');
 
         const correct = currentQuestion._correctIdx;
-        const pcts = [0, 0, 0, 0];
-        pcts[correct] = 50 + Math.floor(Math.random() * 30);
+        const pcts = Array(8).fill(0);
+        pcts[correct] = 40 + Math.floor(Math.random() * 30);
         let rem = 100 - pcts[correct];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 8; i++) {
             if (i !== correct && els.choiceBtns[i].style.display !== 'none') {
-                const val = (i === 3 || rem <= 0) ? rem : Math.floor(Math.random() * rem);
-                pcts[i] = Math.max(0, val);
-                rem -= pcts[i];
+                const val = Math.floor(Math.random() * (rem / 2));
+                pcts[i] = val;
+                rem -= val;
             }
         }
         pcts[correct] += rem;
@@ -650,14 +715,54 @@ const MILLIONAIRE = (() => {
 
         lang = getLang();
         const correct = currentQuestion._correctIdx;
-        const labels = ['A', 'B', 'C', 'D'];
-        const friendCorrect = Math.random() < 0.8;
-        const friendAnswer = friendCorrect ? correct : shuffle([0, 1, 2, 3].filter(i => i !== correct))[0];
+        const friendCorrect = Math.random() < 0.7;
+        const friendAnswer = friendCorrect ? correct : Math.floor(Math.random() * 8);
 
         const msg = lang === 'ar'
-            ? `💬 صديقك: "أعتقد الإجابة ${labels[friendAnswer]}"`
-            : `💬 Ami: "Je pense ${labels[friendAnswer]}"`;
+            ? `💬 صديقك: "أعتقد الإجابة رقم ${friendAnswer + 1}"`
+            : `💬 Ami: "Je dirais le numéro ${friendAnswer + 1}"`;
 
+        showTip(msg);
+    }
+
+    function useExpert() {
+        if (!lifelines.expert || answered) return;
+        lifelines.expert = false;
+        els.lifelineExpert.disabled = true;
+        els.lifelineExpert.classList.add('mill-lifeline--used');
+
+        lang = getLang();
+        const correct = currentQuestion._correctIdx;
+        const expertAnswer = Math.random() < 0.9 ? correct : Math.floor(Math.random() * 8);
+
+        const msg = lang === 'ar'
+            ? `🧠 الخبير: "بنسبة 90% الإجابة هي ${expertAnswer + 1}"`
+            : `🧠 Expert: "Je suis sûr à 90% que c'est le ${expertAnswer + 1}"`;
+
+        showTip(msg);
+    }
+
+    function useSwitch() {
+        if (!lifelines.switch || answered) return;
+        lifelines.switch = false;
+        els.lifelineSwitch.disabled = true;
+        els.lifelineSwitch.classList.add('mill-lifeline--used');
+
+        lang = getLang();
+        // Get a new question of same difficulty
+        let pool = [];
+        if (currentLevel < 8) pool = QUESTIONS_EASY;
+        else if (currentLevel < 16) pool = QUESTIONS_MEDIUM;
+        else pool = QUESTIONS_HARD;
+
+        const newQ = shuffle(pool).find(q => !gameQuestions.includes(q));
+        if (newQ) {
+            gameQuestions[currentLevel] = newQ;
+            loadQuestion();
+        }
+    }
+
+    function showTip(msg) {
         const tip = document.createElement('div');
         tip.className = 'mill-phone-tip';
         tip.textContent = msg;
@@ -707,7 +812,7 @@ const MILLIONAIRE = (() => {
     /* ── Start Game ─── */
     function startGame() {
         currentLevel = 0;
-        lifelines = { fifty: true, audience: true, phone: true };
+        lifelines = { fifty: true, audience: true, phone: true, expert: true, switch: true };
         gameActive = true;
         answered = false;
 
@@ -716,6 +821,8 @@ const MILLIONAIRE = (() => {
         els.lifelineFifty.classList.remove('mill-lifeline--used');
         els.lifelineAudience.classList.remove('mill-lifeline--used');
         els.lifelinePhone.classList.remove('mill-lifeline--used');
+        els.lifelineExpert.classList.remove('mill-lifeline--used');
+        els.lifelineSwitch.classList.remove('mill-lifeline--used');
 
         buildQuestionSet();
         loadQuestion();
@@ -725,8 +832,10 @@ const MILLIONAIRE = (() => {
         els.lifelineFifty.onclick = useFiftyFifty;
         els.lifelineAudience.onclick = useAudience;
         els.lifelinePhone.onclick = usePhone;
+        els.lifelineExpert.onclick = useExpert;
+        els.lifelineSwitch.onclick = useSwitch;
         els.walkAwayBtn.onclick = walkAway;
-        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false; // Always enabled when game is active
+        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false;
         els.resultBtn.onclick = () => startGame(); // Direct Restart
         els.backBtn.onclick = () => {
             els.screen.style.display = 'none';

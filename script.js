@@ -83,6 +83,10 @@ const i18n = {
     millCertClose: '✕ إغلاق',
     millStatsTitle: '📊 الإحصائيات',
     millChangeName: '✏️ تغيير الاسم',
+    millFeat1: '✨ 25 سؤالاً متدرج الصعوبة',
+    millFeat2: '🆘 5 وسائل مساعدة قوية',
+    millFeat3: '📜 شهادة فوز موثقة باسمك',
+    millStart: 'دخول المسابقة',
     /* Hub */
     hubPrayer: 'إمساك و إفطار',
     hubPrayerDesc: 'مواقيت الصلاة والعد التنازلي',
@@ -160,6 +164,10 @@ const i18n = {
     millCertClose: '✕ Fermer',
     millStatsTitle: '📊 Statistiques',
     millChangeName: '✏️ Changer de nom',
+    millFeat1: '✨ 25 questions progressives',
+    millFeat2: '🆘 5 aides puissantes',
+    millFeat3: '📜 Certificat officiel à votre nom',
+    millStart: 'Entrer dans la compétition',
     /* Hub */
     hubPrayer: 'Imsak & Iftar',
     hubPrayerDesc: 'Horaires de prière et compte à rebours',
