@@ -334,6 +334,7 @@ body[data-bg="30"] {
   display: flex;
   flex-direction: column;
   padding: 40px 20px;
+  padding-top: calc(40px + env(safe-area-inset-top));
   overflow-y: auto;
   animation: fadeIn 0.8s var(--ease-out) both;
 }
@@ -645,14 +646,58 @@ html[dir="ltr"] .bg-crescent {
 .app {
   position: relative;
   z-index: 1;
-  max-width: 480px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   padding: var(--space-lg) var(--space-md) var(--space-xl);
+  padding-top: calc(var(--space-lg) + env(safe-area-inset-top));
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-md);
+}
+
+/* Prayer Topbar */
+.prayer-topbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px 20px 4px;
+  padding-top: calc(16px + env(safe-area-inset-top));
+}
+
+.prayer-topbar__back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out);
+}
+
+.prayer-topbar__back:hover {
+  background: rgba(212, 168, 67, 0.1);
+  border-color: var(--gold);
+}
+
+.prayer-topbar__arrow {
+  font-size: 1.1rem;
+}
+
+[dir="ltr"] .prayer-topbar__back {
+  flex-direction: row-reverse;
+}
+
+[dir="ltr"] .prayer-topbar__arrow {
+  transform: scaleX(-1);
 }
 
 
@@ -1038,6 +1083,7 @@ html[dir="ltr"] .bg-crescent {
     radial-gradient(ellipse 80% 60% at 50% 30%, rgba(212, 168, 67, 0.12) 0%, transparent 60%),
     var(--bg-primary);
   padding: 20px 20px 28px;
+  padding-top: calc(20px + env(safe-area-inset-top));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1455,7 +1501,7 @@ html[dir="ltr"] .bg-crescent {
 .about-topbar {
   display: flex;
   justify-content: flex-start;
-  padding-top: 16px;
+  padding-top: calc(16px + env(safe-area-inset-top));
   padding-bottom: 4px;
 }
 
@@ -1733,6 +1779,7 @@ html[dir="ltr"] .bg-crescent {
   align-items: center;
   justify-content: space-between;
   padding: 14px 18px;
+  padding-top: calc(14px + env(safe-area-inset-top));
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
@@ -2903,6 +2950,7 @@ html[dir="ltr"] .quiz-launch-btn:hover .quiz-launch-btn__arrow {
   max-width: 480px;
   margin: 0 auto;
   padding: var(--space-lg) var(--space-md) var(--space-2xl);
+  padding-top: calc(var(--space-lg) + env(safe-area-inset-top));
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -3261,6 +3309,7 @@ html[dir="ltr"] .quiz-back-btn span {
   display: flex;
   align-items: center;
   padding: var(--space-sm) var(--space-md);
+  padding-top: calc(var(--space-sm) + env(safe-area-inset-top));
   gap: var(--space-md);
   z-index: 10;
   pointer-events: none;
