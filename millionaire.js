@@ -444,7 +444,7 @@ const MILLIONAIRE = (() => {
         els.lifelineFifty.disabled = !lifelines.fifty;
         els.lifelineAudience.disabled = !lifelines.audience;
         els.lifelinePhone.disabled = !lifelines.phone;
-        els.walkAwayBtn.disabled = currentLevel === 0;
+        if (els.walkAwayBtn) els.walkAwayBtn.disabled = currentLevel === 0;
 
         els.resultOverlay.style.display = 'none';
     }

@@ -1799,6 +1799,7 @@ html[dir="ltr"] .bg-crescent {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  gap: 15px;
   animation: fadeIn 0.4s var(--ease-out);
 }
 
@@ -1849,25 +1850,48 @@ html[dir="ltr"] .bg-crescent {
 .mill-topbar__info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+
+.mill-topbar__stats-btn,
+.mill-topbar__walk-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.mill-topbar__stats-btn:hover,
+.mill-topbar__walk-btn:hover {
+  background: rgba(212, 168, 67, 0.15);
+  border-color: var(--gold);
+}
+
+.mill-topbar__ladder-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
 }
 
 .mill-topbar__level {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.06);
-  padding: 4px 12px;
-  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .mill-topbar__prize {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--gold);
-  background: rgba(212, 168, 67, 0.1);
-  padding: 4px 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(212, 168, 67, 0.2);
 }
 
 /* Lifelines */
@@ -2042,18 +2066,16 @@ html[dir="ltr"] .bg-crescent {
 .mill-body {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-width: 800px;
+  gap: 10px;
+  max-width: 600px;
   width: 100%;
   margin: 0 auto;
-  flex: 1;
 }
 
 .mill-main-game {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 @media (min-width: 768px) {
@@ -2154,25 +2176,7 @@ html[dir="ltr"] .bg-crescent {
 }
 
 /* Walk Away */
-.mill-walk-away-wrap {
-  text-align: center;
-  padding: 8px 18px 20px;
-  max-width: 480px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.mill-walk-away {
-  padding: 10px 24px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  color: var(--text-muted);
-  font-family: inherit;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all 0.25s var(--ease-out);
-}
+/* Walk Away removed */
 
 .mill-walk-away:hover:not(:disabled) {
   background: rgba(212, 168, 67, 0.08);

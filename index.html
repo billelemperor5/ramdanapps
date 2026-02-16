@@ -378,8 +378,11 @@
             <div class="mill-topbar__info">
                 <span class="mill-topbar__player" id="millPlayerName">—</span>
                 <button class="mill-topbar__stats-btn" id="millStatsBtn" title="Stats">📊</button>
-                <span class="mill-topbar__level" id="millLevel">1/15</span>
-                <span class="mill-topbar__prize" id="millPrize">100 DA</span>
+                <button class="mill-topbar__walk-btn" id="millWalkAway" title="Walk Away">🎩</button>
+                <div class="mill-topbar__ladder-info">
+                    <span class="mill-topbar__level" id="millLevel">1/15</span>
+                    <span class="mill-topbar__prize" id="millPrize">100 DA</span>
+                </div>
             </div>
         </div>
 
@@ -390,16 +393,13 @@
             <button class="mill-lifeline" id="millLLPhone" title="Phone"><span>📞</span></button>
         </div>
 
-        <!-- Body (Question + Ladder) -->
+        <!-- Body -->
         <div class="mill-body">
-            <!-- Left: Gameplay -->
             <div class="mill-main-game">
-                <!-- Question -->
                 <div class="mill-question-area">
                     <div class="mill-question" id="millQ">السؤال هنا</div>
                 </div>
 
-                <!-- Choices -->
                 <div class="mill-choices">
                     <button class="mill-choice" id="millA">
                         <span class="mill-choice__label">A</span><span class="mill-choice__text">—</span>
@@ -416,7 +416,6 @@
                 </div>
             </div>
 
-            <!-- Right: Money Ladder -->
             <div class="mill-ladder-sidebar">
                 <div class="mill-ladder-wrap">
                     <div class="mill-ladder" id="millLadder"></div>
@@ -424,10 +423,7 @@
             </div>
         </div>
 
-        <!-- Walk Away -->
-        <div class="mill-walk-away-wrap">
-            <button class="mill-walk-away" id="millWalkAway" data-i18n="millWalkAway">🎩 انسحب بأرباحك</button>
-        </div>
+
 
         <!-- ═══ Registration Overlay ═══ -->
         <div class="mill-reg" id="millRegOverlay" style="display:none;">
