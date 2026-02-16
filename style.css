@@ -1855,23 +1855,32 @@ html[dir="ltr"] .bg-crescent {
 
 .mill-topbar__stats-btn,
 .mill-topbar__walk-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  width: 32px;
-  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 168, 67, 0.2);
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .mill-topbar__stats-btn:hover,
-.mill-topbar__walk-btn:hover {
-  background: rgba(212, 168, 67, 0.15);
+.mill-topbar__walk-btn:hover:not(:disabled) {
+  background: rgba(212, 168, 67, 0.2);
   border-color: var(--gold);
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px var(--gold));
+}
+
+.mill-topbar__walk-btn:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+  filter: grayscale(1);
 }
 
 .mill-topbar__ladder-info {
@@ -1894,7 +1903,151 @@ html[dir="ltr"] .bg-crescent {
   color: var(--gold);
 }
 
-/* Lifelines */
+.mill-topbar__player {
+  font-size: 0.8rem;
+  color: #fff;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mill-topbar__stats-btn {
+  font-size: 1.1rem;
+}
+
+/* ═══ Intro Screen ═══ */
+.mill-intro {
+  position: absolute;
+  inset: 0;
+  z-index: 950;
+  background: radial-gradient(circle at center, #0d1b4a 0%, #05081a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.mill-intro__content {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: floatUp 0.8s var(--ease-out) both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mill-intro__logo {
+  font-size: 5rem;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.4));
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.mill-intro__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--gold), #f5d98e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+
+.mill-intro__desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.mill-intro__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.mill-intro__feat {
+  background: rgba(255, 255, 255, 0.04);
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.85rem;
+  color: #fff;
+  transition: transform 0.3s;
+}
+
+.mill-intro__feat:hover {
+  transform: translateX(-5px);
+  background: rgba(212, 168, 67, 0.08);
+  border-color: rgba(212, 168, 67, 0.3);
+}
+
+.mill-intro__start-btn {
+  margin-top: 15px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #c9973a, var(--gold), #8e6a2a);
+  border: none;
+  border-radius: 30px;
+  color: #05081a;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 10px 30px rgba(201, 151, 58, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.mill-intro__start-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: rotate(45deg);
+  animation: shineLoop 3s infinite;
+}
+
+.mill-intro__start-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(201, 151, 58, 0.5);
+}
+
+@keyframes shineLoop {
+  0% {
+    transform: translateX(-150%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(150%) rotate(45deg);
+  }
+}
+
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Walk Away button removed */
 .mill-lifelines {
   display: flex;
   justify-content: center;

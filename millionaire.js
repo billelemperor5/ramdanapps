@@ -319,6 +319,9 @@ const MILLIONAIRE = (() => {
             lifelineAudience: document.getElementById('millLLAudience'),
             lifelinePhone: document.getElementById('millLLPhone'),
             walkAwayBtn: document.getElementById('millWalkAway'),
+            // Intro
+            introOverlay: document.getElementById('millIntroOverlay'),
+            introStartBtn: document.getElementById('millIntroStart'),
             // Result
             resultOverlay: document.getElementById('millResult'),
             resultIcon: document.getElementById('millResultIcon'),
@@ -738,7 +741,25 @@ const MILLIONAIRE = (() => {
         resolveDOM();
         const stats = getStats();
 
-        // Bind common
+        // 1. Show Intro first (Professional welcome)
+        els.introOverlay.style.display = 'flex';
+        els.regOverlay.style.display = 'none';
+
+        // Bind Intro button
+        els.introStartBtn.onclick = () => {
+            els.introOverlay.style.display = 'none';
+
+            // Check if player already registered
+            if (stats.playerName) {
+                playerName = stats.playerName;
+                if (els.playerLabel) els.playerLabel.textContent = playerName;
+                startGame();
+            } else {
+                showRegistration();
+            }
+        };
+
+        // Bind common (one-time)
         els.backBtn.onclick = () => {
             els.screen.style.display = 'none';
             document.getElementById('hubScreen').style.display = 'block';
@@ -757,15 +778,6 @@ const MILLIONAIRE = (() => {
                 document.getElementById('millionaireScreen').style.display = 'flex';
                 showRegistration();
             };
-        }
-
-        // Check if player already registered
-        if (stats.playerName) {
-            playerName = stats.playerName;
-            if (els.playerLabel) els.playerLabel.textContent = playerName;
-            startGame();
-        } else {
-            showRegistration();
         }
     }
 
