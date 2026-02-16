@@ -447,7 +447,7 @@ const MILLIONAIRE = (() => {
         els.lifelineFifty.disabled = !lifelines.fifty;
         els.lifelineAudience.disabled = !lifelines.audience;
         els.lifelinePhone.disabled = !lifelines.phone;
-        if (els.walkAwayBtn) els.walkAwayBtn.disabled = currentLevel === 0;
+        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false;
 
         els.resultOverlay.style.display = 'none';
     }
@@ -551,7 +551,7 @@ const MILLIONAIRE = (() => {
 
     /* ── Walk Away ─── */
     function walkAway() {
-        if (!gameActive || currentLevel === 0) return;
+        if (!gameActive) return;
         endGame('walkaway');
     }
 
@@ -726,6 +726,7 @@ const MILLIONAIRE = (() => {
         els.lifelineAudience.onclick = useAudience;
         els.lifelinePhone.onclick = usePhone;
         els.walkAwayBtn.onclick = walkAway;
+        if (els.walkAwayBtn) els.walkAwayBtn.disabled = false; // Always enabled when game is active
         els.resultBtn.onclick = () => startGame(); // Direct Restart
         els.backBtn.onclick = () => {
             els.screen.style.display = 'none';
